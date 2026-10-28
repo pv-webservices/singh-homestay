@@ -1,0 +1,206 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Photo from "../components/Photo.astro";
+import Icon from "../components/Icon.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import CTA from "../components/CTA.astro";
+import { business, houseRules } from "../data/site";
+---
+
+<Layout
+  title="About Us · A Warm Welcome in Idukki"
+  description="Get to know Singh Homestay (Singh House Homestay) in Aruvikuzhi, Idukki — a Kerala Tourism classified homestay hosted by Sanjay Singh, near Mlamala Waterfall."
+>
+  <PageHero
+    photo="veranda"
+    crumb="About Us"
+    eyebrow="About Singh Homestay"
+    title="Warm hospitality in the lap of Kerala"
+    text="Some places invite you to do a little less, look a little longer and enjoy being together. Welcome to our corner of Idukki."
+  />
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="split-media" data-reveal="image">
+        <div class="frame">
+          <Photo photo="exterior" sizes="(max-width: 980px) 100vw, 45vw" />
+        </div>
+        <div class="frame floating">
+          <Photo photo="dining" sizes="25vw" />
+        </div>
+      </div>
+      <div data-reveal>
+        <p class="eyebrow">Hello from the homestay</p>
+        <h2>
+          A simple stay. A <span class="script">heartfelt</span> welcome.
+        </h2>
+        <p class="lead">
+          Singh Homestay is in Aruvikuzhi, Mlamala Puthuvel, in the Peerumedu
+          taluk of Kerala’s Idukki district. On our signboard you’ll see the
+          name {business.altName}.
+        </p>
+        <p>
+          A homestay is a more personal way to travel: a room to settle into, a
+          place to spend time together, and a direct conversation with the
+          people welcoming you. Whether it’s a family break, a quiet weekend or
+          a base for exploring Idukki, tell us what you have in mind and we’ll
+          help you plan the arrangements before you arrive.
+        </p>
+        <div class="host">
+          <span class="host-photo">
+            <img
+              src="/images/sanjay-singh-director-profile.webp"
+              width="540"
+              height="720"
+              alt="Portrait of Sanjay Singh, Managing Director of Singh Homestay"
+              loading="lazy"
+              decoding="async"
+            />
+          </span>
+          <span>
+            <span class="host-name">{business.host}</span>
+            <small>{business.hostRole}</small>
+          </span>
+        </div>
+        <a class="link-arrow" href="/contact-us/">
+          Say hello <Icon name="arrow" size={18} />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-paper" aria-labelledby="host-title">
+    <div class="wrap host-section">
+      <figure class="host-portrait" data-reveal>
+        <img
+          src="/images/sanjay-singh-director-profile.webp"
+          width="540"
+          height="720"
+          alt="Portrait of Sanjay Singh, Managing Director of Singh Homestay"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>
+          <strong>{business.host}</strong>
+          <small>{business.hostRole}</small>
+        </figcaption>
+      </figure>
+      <div data-reveal>
+        <p class="eyebrow">Meet your host</p>
+        <h2 id="host-title">
+          A personal welcome from <span class="script">Sanjay Singh</span>
+        </h2>
+        <p class="lead">
+          Sanjay Singh is the Managing Director of Singh Homestay. When you plan
+          a stay, you speak directly with the homestay — no booking agents in
+          between.
+        </p>
+        <p>
+          Share your dates, who’s travelling and anything that matters to your
+          visit. We’ll talk you through the rooms, arrangements and directions
+          before you arrive.
+        </p>
+        <div class="btn-row" style="margin-top:28px">
+          <a class="btn" href={`tel:${business.tel}`}>
+            <Icon name="phone" size={18} /> Call {business.phone}
+          </a>
+          <a class="btn btn-ghost" href="/book-your-stay/">
+            Plan your stay <Icon name="arrow" size={18} />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-forest on-dark">
+    <div class="wrap split reverse">
+      <div class="frame wide" data-reveal="image">
+        <Photo photo="waterfall" sizes="(max-width: 980px) 100vw, 50vw" />
+      </div>
+      <div data-reveal>
+        <p class="eyebrow">Our surroundings</p>
+        <h2>Waterfall country & green hills</h2>
+        <p class="lead">
+          The Mlamala waterfall area and Idukki’s green landscapes are part of
+          what makes a stay here feel different.
+        </p>
+        <p>
+          Make time for the wider Peerumedu region, known for its tea, coffee
+          and spice plantations — or simply let the landscape set the pace of
+          your day.
+        </p>
+        <a class="link-arrow" href="/nearby-places/">
+          Get to know the area <Icon name="arrow" size={18} />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SectionHeading
+        eyebrow="Our approach"
+        title="Good hospitality starts with a conversation"
+        center
+      />
+      <div class="card-grid">
+        {[
+          [
+            "home",
+            "Real rooms, real photos",
+            "Every room photograph on this site shows the actual homestay, so you know what to expect before you arrive.",
+          ],
+          [
+            "chat",
+            "Talk to us directly",
+            "Share your dates, group size and anything that matters to your visit. Ask questions before making plans.",
+          ],
+          [
+            "leaf",
+            "Respect for the setting",
+            "Plastics, alcohol and tobacco are not allowed — so the homestay and its surroundings stay calm and clean.",
+          ],
+        ].map(([icon, title, text], i) => (
+          <article class="value-card" data-reveal style={`--i:${i}`}>
+            <span class="rule-icon">
+              <Icon name={icon} size={22} />
+            </span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight bg-sage">
+    <div class="wrap know-grid">
+      <div data-reveal>
+        <p class="eyebrow">Recognised & approved</p>
+        <h2 style="font-size:var(--fs-h2)">A classified Kerala homestay</h2>
+        <p class="lead" style="margin-top:20px">
+          Singh House Homestay has been classified under the homestay scheme of
+          the Department of Tourism, Government of Kerala.
+        </p>
+      </div>
+      <div class="rules-card" data-reveal style="--i:1">
+        <h3>House rules</h3>
+        <ul class="rule-list">
+          {houseRules.map(([icon, title, text]) => (
+            <li>
+              <span class="rule-icon">
+                <Icon name={icon} size={22} />
+              </span>
+              <span>
+                <strong>{title}</strong>
+                <span>{text}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+  <CTA />
+</Layout>

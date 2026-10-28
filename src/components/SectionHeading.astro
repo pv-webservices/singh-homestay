@@ -1,0 +1,29 @@
+---
+import Icon from "./Icon.astro";
+interface Props {
+  eyebrow: string;
+  title: string;
+  text?: string;
+  href?: string;
+  link?: string;
+  center?: boolean;
+  id?: string;
+}
+const { eyebrow, title, text, href, link, center = false, id } = Astro.props;
+---
+
+<div class:list={["section-head", { center }]} data-reveal>
+  <div>
+    <p class="eyebrow">{eyebrow}</p>
+    <h2 id={id}>
+      <Fragment set:html={title} />
+    </h2>
+    {text && <p class="lead">{text}</p>}
+  </div>
+  {href && (
+    <a class="btn btn-ghost btn-sm" href={href}>
+      {link}
+      <Icon name="arrow" size={17} />
+    </a>
+  )}
+</div>

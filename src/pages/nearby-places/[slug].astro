@@ -1,0 +1,148 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import WhatsAppIcon from "../../components/WhatsAppIcon.astro";
+import Photo from "../../components/Photo.astro";
+import Icon from "../../components/Icon.astro";
+import Gallery from "../../components/Gallery.astro";
+import CTA from "../../components/CTA.astro";
+import { places, business, whatsapp } from "../../data/site";
+export function getStaticPaths() {
+  return places.map((place) => ({
+    params: { slug: place.slug },
+    props: { place },
+  }));
+}
+const { place } = Astro.props;
+const waterfall = place.slug === "mlamala-waterfall";
+const maps =
+  "https://www.google.com/maps/search/?api=1&query=" +
+  encodeURIComponent(
+    waterfall ? "Mlamala waterfall Idukki Kerala" : "Peerumedu Idukki Kerala",
+  );
+---
+
+<Layout
+  title={`${place.title} · Explore from Singh Homestay`}
+  description={place.description}
+>
+  <PageHero
+    photo={place.image}
+    crumb={place.title}
+    parent={{ href: "/nearby-places/", label: "Nearby Places" }}
+    eyebrow={place.label}
+    title={place.title}
+    text={
+      waterfall
+        ? "The sound of water, a green canopy and a moment to pause in the Mlamala waterfall area."
+        : "A hill region of tea, coffee and spice plantations in Kerala’s Idukki district."
+    }
+  />
+  <div class="wrap section detail-grid">
+    <div class="detail-main">
+      <section data-reveal>
+        <p class="eyebrow">Explore at your own pace</p>
+        <h2>
+          {waterfall
+            ? "A cascade in a green setting"
+            : "The green heart of plantation country"}
+        </h2>
+        {waterfall ? (
+          <>
+            <p class="lead">
+              Water spreads across broad shelves of rock and tumbles through
+              dense green forest. The Mlamala waterfall area is part of the
+              natural setting near Singh Homestay in Aruvikuzhi.
+            </p>
+            <p>
+              Include a visit in your plans after asking the homestay about the
+              exact location, current conditions and approach. Water levels and
+              access can change, so check before you travel.
+            </p>
+          </>
+        ) : (
+          <>
+            <p class="lead">
+              Peerumedu, also known as Peermade, is a hill region in Idukki.
+              Tea, coffee, cardamom and other plantations are part of its
+              landscape.
+            </p>
+            <div class="frame wide-frame" style="margin:28px 0 0">
+              <Photo
+                photo="ai-spice-still"
+                sizes="(max-width: 980px) 100vw, 55vw"
+              />
+            </div>
+            <p class="photo-note" style="margin-bottom:24px">
+              Illustrative images of the region’s tea and spice country, not a
+              named estate or viewpoint.
+            </p>
+            <p>
+              Take time to discover the wider area around your stay. Ask the
+              homestay about places that fit your route and interests, and
+              confirm access before visiting any private estate.
+            </p>
+            <a
+              class="link-arrow"
+              href="https://www.keralatourism.org/munnar/peerumedu-idukki.php"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read More with Kerala Tourism <span aria-hidden="true">↗</span>
+            </a>
+          </>
+        )}
+      </section>
+      <section>
+        <h2>Plan before you set out</h2>
+        <p>
+          {waterfall
+            ? "Ask the homestay for the arrival pin and current approach information. Please check access, weather and local guidance before arranging your visit."
+            : "Discuss current routes and places to visit with the homestay. The map search below locates the wider region, rather than a particular attraction entrance."}
+        </p>
+        <p>
+          Travel times, opening arrangements, fees and access have not been
+          confirmed here. Contact the homestay for up-to-date advice for your
+          dates.
+        </p>
+        <a
+          class="link-arrow"
+          href={maps}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Search {place.title} on Maps <span aria-hidden="true">↗</span>
+        </a>
+      </section>
+      {waterfall && (
+        <section>
+          <h2>Waterfall moments</h2>
+          <Gallery items={["waterfall", "cascade"]} layout="masonry" />
+        </section>
+      )}
+    </div>
+    <aside class="aside-card on-dark">
+      <p class="eyebrow">Make a stay of it</p>
+      <h2>Your base in Aruvikuzhi</h2>
+      <p>
+        Plan a stay at Singh Homestay and make time for the landscapes of
+        Idukki. We’re happy to share directions and local advice.
+      </p>
+      <a class="btn btn-leaf" href="/book-your-stay/">
+        Enquire about a stay <Icon name="arrow" size={18} />
+      </a>
+      <div class="aside-links">
+        <a href={`tel:${business.tel}`}>
+          <Icon name="phone" size={18} /> {business.phone}
+        </a>
+        <a href={whatsapp} target="_blank" rel="noopener noreferrer">
+          <WhatsAppIcon size={18} /> Ask on WhatsApp
+        </a>
+        <a href="/nearby-places/">
+          <Icon name="compass" size={18} /> More places to explore
+        </a>
+      </div>
+    </aside>
+  </div>
+  <CTA />
+</Layout>

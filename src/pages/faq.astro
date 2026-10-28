@@ -1,0 +1,60 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Icon from "../components/Icon.astro";
+import WhatsAppIcon from "../components/WhatsAppIcon.astro";
+import CTA from "../components/CTA.astro";
+import { business, faq, whatsapp, houseRules } from "../data/site";
+---
+
+<Layout
+  title="Frequently Asked Questions · Planning Your Stay"
+  description="Answers about enquiries, directions to Aruvikuzhi, room arrangements, house rules and the details to confirm before booking at Singh Homestay."
+>
+  <PageHero
+    crumb="FAQs"
+    eyebrow="Before you set off"
+    title="A few things you might like to know"
+    text="A little clarity makes planning easier. Here are answers to common questions about a stay with us."
+    compact
+  />
+  <section class="section">
+    <div class="wrap faq-layout">
+      <aside class="aside-card on-dark">
+        <p class="eyebrow">Still curious?</p>
+        <h2>Ask us directly</h2>
+        <p>
+          Your plans are personal. If you have a particular question, talk to
+          us.
+        </p>
+        <a
+          class="btn btn-leaf"
+          href={whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <WhatsAppIcon size={20} /> Ask on WhatsApp
+        </a>
+        <div class="aside-links">
+          <a href={`tel:${business.tel}`}>
+            <Icon name="phone" size={18} /> {business.phone}
+          </a>
+          {houseRules.map(([icon, title]) => (
+            <span style="display:flex;gap:10px;align-items:center;color:rgba(255,255,255,.75)">
+              <Icon name={icon} size={18} /> {title}
+            </span>
+          ))}
+        </div>
+      </aside>
+      <div class="faq-list">
+        {faq.map(([question, answer], i) => (
+          <details open={i === 0} data-reveal style={`--i:${i % 4}`}>
+            <summary>{question}</summary>
+            <p>{answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+  <CTA />
+</Layout>

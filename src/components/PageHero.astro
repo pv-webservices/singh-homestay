@@ -1,0 +1,54 @@
+---
+import Photo from "./Photo.astro";
+import type { PhotoKey } from "../data/site";
+interface Props {
+  eyebrow: string;
+  title: string;
+  text?: string;
+  photo?: PhotoKey;
+  crumb: string;
+  parent?: { href: string; label: string };
+  compact?: boolean;
+}
+const {
+  eyebrow,
+  title,
+  text,
+  photo,
+  crumb,
+  parent,
+  compact = false,
+} = Astro.props;
+---
+
+<section
+  class:list={["page-hero", { compact, plain: !photo }]}
+  aria-labelledby="page-title"
+>
+  {photo && <Photo photo={photo} eager sizes="100vw" />}
+  <div class="page-hero-inner">
+    <nav class="breadcrumb enter" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span aria-hidden="true">/</span>
+      {parent && (
+        <>
+          <a href={parent.href}>{parent.label}</a>
+          <span aria-hidden="true">/</span>
+        </>
+      )}
+      <span aria-current="page">{crumb}</span>
+    </nav>
+    <p class="eyebrow light enter" style="--d:1">
+      {eyebrow}
+    </p>
+    <h1 id="page-title" class="enter" style="--d:2">
+      {title}
+    </h1>
+    {text && (
+      <p class="lead enter" style="--d:3">
+        {text}
+      </p>
+    )}
+    <slot />
+  </div>
+</section>

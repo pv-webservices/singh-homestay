@@ -1,0 +1,30 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Gallery from "../components/Gallery.astro";
+import CTA from "../components/CTA.astro";
+---
+
+<Layout
+  title="Photo Gallery · Rooms, Waterfalls & Idukki Landscapes"
+  description="Explore Singh Homestay through real photographs: rooms, sit-out, dining space, Mlamala waterfall and the green landscapes around Idukki."
+>
+  <PageHero
+    photo="cascade"
+    crumb="Gallery"
+    eyebrow="Gallery"
+    title="Moments from Singh Homestay"
+    text="The rooms you’ll come home to and the landscapes you’ll remember — real photographs from the homestay and the surrounding region."
+    compact
+  />
+  <section class="section">
+    <div class="wrap">
+      <Gallery filters layout="masonry" />
+      <p class="photo-note" style="text-align:center;margin-top:28px">
+        All photographs are of the homestay and its surroundings. Landscape
+        photographs show the wider region, not the view from a particular room.
+      </p>
+    </div>
+  </section>
+  <CTA />
+</Layout>

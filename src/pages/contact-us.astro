@@ -1,0 +1,96 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import EnquiryForm from "../components/EnquiryForm.astro";
+import Photo from "../components/Photo.astro";
+import Icon from "../components/Icon.astro";
+import WhatsAppIcon from "../components/WhatsAppIcon.astro";
+import { business, whatsapp } from "../data/site";
+---
+
+<Layout
+  title="Contact Us · Enquiries & Directions"
+  description="Contact Singh Homestay in Aruvikuzhi, Idukki. Call +91 92880 56157, the landline 04869 296094, or send a WhatsApp enquiry about rooms and directions."
+>
+  <PageHero
+    photo="ai-tea-slopes"
+    crumb="Contact"
+    eyebrow="Contact us"
+    title="Let’s make you feel at home"
+    text="A question about your stay or planning time in Idukki? Call, message or send an enquiry — we’d be happy to hear from you."
+    compact
+  />
+  <section class="section">
+    <div class="wrap contact-layout">
+      <div>
+        <div class="contact-cards">
+          <a class="contact-card" href={`tel:${business.tel}`} data-reveal>
+            <span class="rule-icon">
+              <Icon name="phone" size={22} />
+            </span>
+            <small>Mobile</small>
+            <strong>{business.phone}</strong>
+          </a>
+          <a
+            class="contact-card"
+            href="tel:+914869296094"
+            data-reveal
+            style="--i:1"
+          >
+            <span class="rule-icon">
+              <Icon name="phone" size={22} />
+            </span>
+            <small>Landline</small>
+            <strong>{business.landline}</strong>
+          </a>
+          <a
+            class="contact-card wide"
+            href={whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-reveal
+            style="--i:2"
+          >
+            <span class="rule-icon" style="background:#dcf5e5;color:#128c4a">
+              <WhatsAppIcon size={24} />
+            </span>
+            <small>WhatsApp</small>
+            <strong>Chat with the homestay</strong>
+          </a>
+          <div class="contact-card wide" data-reveal style="--i:3">
+            <span class="rule-icon">
+              <Icon name="pin" size={22} />
+            </span>
+            <small>Address</small>
+            <address>
+              <strong>{business.address}</strong>
+            </address>
+            <span class="photo-note" style="margin:4px 0 0">
+              Signage reads “{business.altName}”.
+            </span>
+          </div>
+        </div>
+        <div class="map-card" data-reveal>
+          <Photo photo="ai-hill-road" sizes="(max-width: 980px) 100vw, 45vw" />
+          <div>
+            <p class="eyebrow light">Getting here</p>
+            <h2>Let’s find your way</h2>
+            <p>
+              Search our address on Google Maps, then contact us for the exact
+              arrival pin and current directions before you travel.
+            </p>
+            <a
+              class="btn btn-light btn-sm"
+              href={business.maps}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open in Google Maps <Icon name="arrow-up-right" size={17} />
+            </a>
+          </div>
+        </div>
+      </div>
+      <EnquiryForm />
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,102 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import Gallery from "../../components/Gallery.astro";
+import Icon from "../../components/Icon.astro";
+import WhatsAppIcon from "../../components/WhatsAppIcon.astro";
+import CTA from "../../components/CTA.astro";
+import { business, whatsapp } from "../../data/site";
+---
+
+<Layout
+  title="Homestay Rooms · Take a Look Inside"
+  description="See the real bedrooms at Singh Homestay: pink-walled interiors, wooden double and twin beds and fresh linens in Aruvikuzhi, Idukki. Ask about a stay for your dates."
+>
+  <PageHero
+    photo="room-wide"
+    crumb="Homestay Rooms"
+    parent={{ href: "/rooms/", label: "Rooms" }}
+    eyebrow="Make yourself at home"
+    title="Homestay Rooms"
+    text="Familiar comforts and a place to settle in. Here’s a closer look at the accommodation at Singh Homestay."
+  />
+  <div class="wrap section detail-grid">
+    <div class="detail-main">
+      <section data-reveal>
+        <p class="eyebrow">Your stay at a glance</p>
+        <h2>A welcoming place to come back to</h2>
+        <p class="lead">
+          Pink-walled interiors, carved wooden beds, fresh white linens and
+          simple furnishings. Browse the photographs to get a feel for the rooms
+          before you enquire.
+        </p>
+        <ul class="check-list">
+          <li>
+            <Icon name="check" size={16} /> Double bed and twin bed rooms
+          </li>
+          <li>
+            <Icon name="check" size={16} /> Shared sit-out and dining space
+          </li>
+          <li>
+            <Icon name="check" size={16} /> Parking for staying guests
+          </li>
+          <li>
+            <Icon name="check" size={16} /> Peaceful, green surroundings
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h2>A closer look</h2>
+        <Gallery
+          items={[
+            "room-wide",
+            "room",
+            "twin-beds",
+            "twin-room",
+            "veranda",
+            "dining",
+          ]}
+          layout="masonry"
+        />
+        <p class="photo-note">
+          Actual accommodation at Singh Homestay. Room allocation is confirmed
+          directly.
+        </p>
+      </section>
+      <section data-reveal>
+        <h2>Before you book</h2>
+        <p>
+          Room arrangements vary, so please share the number of people
+          travelling and any particular needs. Ask about guest capacity, bed
+          arrangements, bathrooms, check-in and check-out times, and any
+          facilities that matter to your visit — Wi-Fi, hot water, meals or
+          accessibility.
+        </p>
+        <p>
+          For a family visit, include children’s ages in your enquiry. For a
+          larger group, call us to discuss how you would like to stay.
+        </p>
+      </section>
+    </div>
+    <aside class="aside-card on-dark">
+      <p class="eyebrow">Plan a little time away</p>
+      <h2>Let’s talk about your stay</h2>
+      <p>
+        Tell us your dates and who’s coming along. We’ll confirm room
+        arrangements, availability and pricing.
+      </p>
+      <a class="btn btn-leaf" href="/book-your-stay/">
+        Enquire about these rooms <Icon name="arrow" size={17} />
+      </a>
+      <div class="aside-links">
+        <a href={`tel:${business.tel}`}>
+          <Icon name="phone" size={18} /> {business.phone}
+        </a>
+        <a href={whatsapp} target="_blank" rel="noopener noreferrer">
+          <WhatsAppIcon size={18} /> Chat on WhatsApp
+        </a>
+      </div>
+    </aside>
+  </div>
+  <CTA />
+</Layout>

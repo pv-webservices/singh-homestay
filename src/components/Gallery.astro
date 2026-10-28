@@ -1,0 +1,56 @@
+---
+import Photo from "./Photo.astro";
+import Icon from "./Icon.astro";
+import { photos, gallery, type PhotoKey } from "../data/site";
+interface Props {
+  items?: PhotoKey[];
+  filters?: boolean;
+  layout?: "mosaic" | "masonry";
+}
+const { items = gallery, filters = false, layout = "mosaic" } = Astro.props;
+const categories = [
+  "All photos",
+  ...new Set(items.map((key) => photos[key].category)),
+];
+const sizes =
+  layout === "masonry"
+    ? "(max-width: 640px) 50vw, (max-width: 1100px) 50vw, 33vw"
+    : "(max-width: 640px) 50vw, 25vw";
+---
+
+<div class="gallery-component" data-gallery>
+  {filters && (
+    <div class="gallery-filters" aria-label="Filter photos" hidden>
+      {categories.map((category, i) => (
+        <button
+          class:list={["filter-button", { active: i === 0 }]}
+          type="button"
+          data-filter={category}
+          aria-pressed={i === 0 ? "true" : "false"}
+        >
+          {category}
+        </button>
+      ))}
+    </div>
+  )}
+  <div class={layout}>
+    {items.map((key, i) => (
+      <a
+        class="gallery-tile zoom"
+        href={`/images/${photos[key].name}-${Math.min(1600, photos[key].width)}.webp`}
+        data-category={photos[key].category}
+        data-caption={photos[key].caption}
+        data-gallery-item
+        data-reveal
+        style={`--i:${i % 4}`}
+        aria-label={`View photo: ${photos[key].caption}`}
+      >
+        <Photo photo={key} sizes={sizes} />
+        <span class="gallery-overlay">
+          <span>{photos[key].caption}</span>
+          <Icon name="plus" size={20} />
+        </span>
+      </a>
+    ))}
+  </div>
+</div>

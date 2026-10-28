@@ -1,0 +1,53 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Photo from "../components/Photo.astro";
+import Icon from "../components/Icon.astro";
+import EnquiryForm from "../components/EnquiryForm.astro";
+import { business } from "../data/site";
+---
+
+<Layout
+  title="Book Your Stay · Ask About Availability"
+  description="Plan your stay at Singh Homestay in Idukki. Share your dates and guest details to prepare a WhatsApp enquiry about room availability and pricing."
+>
+  <PageHero
+    crumb="Book Your Stay"
+    eyebrow="Book your stay"
+    title="A little time away, a little closer to nature"
+    text="Share your dates and who’s coming along. Your enquiry goes straight into a conversation with Singh Homestay."
+    compact
+  />
+  <section class="section">
+    <div class="wrap booking-layout">
+      <div class="booking-story" data-reveal>
+        <div class="frame">
+          <Photo
+            photo="room-wide"
+            eager
+            sizes="(max-width: 980px) 100vw, 42vw"
+          />
+        </div>
+        <h2>How it works</h2>
+        <ol class="mini-steps">
+          <li>Choose your dates and share your plans.</li>
+          <li>Review the WhatsApp message we prepare.</li>
+          <li>Send it and agree the details with the host.</li>
+        </ol>
+        <p>
+          This is an enquiry, not an instant booking. Availability, room
+          arrangements and rates are confirmed directly by the homestay.
+        </p>
+        <div class="btn-row" style="margin-top:20px">
+          <a class="btn btn-ghost btn-sm" href={`tel:${business.tel}`}>
+            <Icon name="phone" size={17} /> Prefer to call? {business.phone}
+          </a>
+        </div>
+        <p class="form-help" style="margin-top:16px">
+          <a href="/booking-policy/">Read our booking & enquiry information</a>
+        </p>
+      </div>
+      <EnquiryForm booking />
+    </div>
+  </section>
+</Layout>

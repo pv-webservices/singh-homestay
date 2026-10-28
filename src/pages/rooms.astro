@@ -1,0 +1,156 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Photo from "../components/Photo.astro";
+import Icon from "../components/Icon.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import CTA from "../components/CTA.astro";
+---
+
+<Layout
+  title="Rooms & Accommodation in Idukki"
+  description="See real room photographs at Singh Homestay in Aruvikuzhi, Idukki: double and twin bed arrangements, a sit-out and dining space. Enquire directly for your dates."
+>
+  <PageHero
+    photo="room"
+    crumb="Rooms"
+    eyebrow="Rooms & accommodation"
+    title="Comfortable rooms. Quieter days."
+    text="Clean rooms, cosy beds and the warmth of a homestay — a restful base for your time in Idukki."
+  />
+
+  <section class="section">
+    <div class="wrap room-feature">
+      <div class="room-stack">
+        <a class="frame zoom" href="/rooms/homestay-rooms/" data-reveal="image">
+          <Photo photo="room-wide" sizes="(max-width: 980px) 60vw, 35vw" />
+        </a>
+        <a
+          class="frame zoom"
+          href="/rooms/homestay-rooms/"
+          data-reveal="image"
+          style="--i:1"
+        >
+          <Photo photo="twin-beds" sizes="(max-width: 980px) 40vw, 22vw" />
+        </a>
+        <a
+          class="frame zoom"
+          href="/rooms/homestay-rooms/"
+          data-reveal="image"
+          style="--i:2"
+        >
+          <Photo photo="twin-room" sizes="(max-width: 980px) 40vw, 22vw" />
+        </a>
+      </div>
+      <div data-reveal>
+        <p class="eyebrow">Singh Homestay accommodation</p>
+        <h2>Homestay Rooms</h2>
+        <p class="lead">
+          Warm pink walls, sturdy wooden beds and fresh linens — simple,
+          comfortable rooms with a familiar, welcoming feel.
+        </p>
+        <ul class="check-list">
+          <li>
+            <Icon name="check" size={16} /> Double and twin bed arrangements
+          </li>
+          <li>
+            <Icon name="check" size={16} /> Shared sit-out and dining space
+          </li>
+          <li>
+            <Icon name="check" size={16} /> Parking for staying guests
+          </li>
+          <li>
+            <Icon name="check" size={16} /> Real photographs of the actual rooms
+          </li>
+        </ul>
+        <div class="btn-row">
+          <a class="btn" href="/rooms/homestay-rooms/">
+            Take a look inside <Icon name="arrow" size={18} />
+          </a>
+          <a class="btn btn-ghost" href="/book-your-stay/">
+            Check availability
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-paper">
+    <div class="wrap">
+      <SectionHeading
+        eyebrow="Shared spaces"
+        title="Room to gather, room to unwind"
+        text="Beyond the bedrooms, there’s a sheltered sit-out and a dining space to share with the people you travel with."
+      />
+      <div class="stay-bento">
+        <div class="bento-item b-1" data-reveal>
+          <Photo photo="veranda" sizes="(max-width: 980px) 100vw, 42vw" />
+          <span class="bento-label">
+            <span>
+              <strong>The sit-out</strong>
+              <small>Seating under a sheltered roof</small>
+            </span>
+          </span>
+        </div>
+        <div class="bento-item b-2" data-reveal style="--i:1">
+          <Photo photo="dining" sizes="(max-width: 640px) 50vw, 33vw" />
+          <span class="bento-label">
+            <span>
+              <strong>Dining space</strong>
+              <small>A table for everyone</small>
+            </span>
+          </span>
+        </div>
+        <div class="bento-item b-3" data-reveal style="--i:2">
+          <Photo photo="exterior" sizes="(max-width: 640px) 50vw, 25vw" />
+          <span class="bento-label">
+            <span>
+              <strong>The homestay</strong>
+              <small>Aruvikuzhi, Idukki</small>
+            </span>
+          </span>
+        </div>
+        <div class="bento-item bento-note b-4" data-reveal style="--i:3">
+          <Icon name="car" size={28} />
+          <p>Parking only for customers.</p>
+        </div>
+        <div class="bento-item bento-note b-5" data-reveal style="--i:4">
+          <Icon name="leaf" size={28} />
+          <p>A plastic, alcohol and tobacco-free stay.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-forest on-dark">
+    <div class="wrap">
+      <SectionHeading
+        eyebrow="Make it your kind of stay"
+        title="Tell us a few details — we’ll suggest the right rooms"
+        text="Room allocation, capacity and rates depend on your dates and group. Ask us about anything that matters to you:"
+      />
+      <ul class="ask-grid">
+        {[
+          ["people", "Number of adults & children"],
+          ["bed", "Preferred bed arrangement"],
+          ["calendar", "Check-in & check-out times"],
+          ["dining", "Meals & facilities"],
+        ].map(([icon, text], i) => (
+          <li data-reveal style={`--i:${i}`}>
+            <Icon name={icon} size={22} />
+            {text}
+          </li>
+        ))}
+      </ul>
+      <div class="btn-row" style="margin-top:36px" data-reveal>
+        <a class="btn btn-leaf" href="/book-your-stay/">
+          Tell us your plans <Icon name="arrow" size={18} />
+        </a>
+        <a class="btn btn-ghost-light" href="/faq/">
+          Read the FAQs
+        </a>
+      </div>
+    </div>
+  </section>
+  <CTA />
+</Layout>

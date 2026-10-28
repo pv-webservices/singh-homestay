@@ -1,0 +1,58 @@
+---
+interface Props {
+  name: string;
+  size?: number;
+  class?: string;
+}
+const { name, size = 24, class: cls } = Astro.props;
+const paths: Record<string, string> = {
+  arrow: "M4 12h15m-6-6 6 6-6 6",
+  "arrow-up-right": "M7 17 17 7M8 7h9v9",
+  "chev-left": "m15 5-7 7 7 7",
+  "chev-right": "m9 5 7 7-7 7",
+  leaf: "M20 4c-9-2-16 3-15 10 1 6 12 8 15-10ZM4 21 15 9M8 15l-1-5m5 2 5 1",
+  home: "m3 10 9-7 9 7M5 9v12h5v-7h4v7h5V9",
+  pin: "M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0ZM15 10a3 3 0 1 1-6 0 3 3 0 0 1 6 0",
+  people:
+    "M16 21v-3a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v3m20 0v-3a4 4 0 0 0-3-4M9 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8m9-7a4 4 0 0 1 0 8",
+  calendar: "M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2ZM7 2v5m10-5v5M3 10h18",
+  bed: "M3 18v3m18-3v3M3 12h18v6H3ZM5 12V5h14v7M7 9h3m4 0h3",
+  phone: "M5 3 2 6c0 8 8 16 16 16l3-3-5-5-3 3c-3-1-5-3-6-6l3-3Z",
+  chat: "M21 11a9 9 0 0 1-13 8L3 21l1-5A9 9 0 1 1 21 11ZM8 10h8m-8 4h5",
+  check: "m5 12 4 4L20 5",
+  mountain: "m2 21 8-16 5 10 3-5 5 11H2Zm5-10 3 2 2-2",
+  water: "M2 7q3-4 6 0t6 0 8 0M2 13q3-4 6 0t6 0 8 0M2 19q3-4 6 0t6 0 8 0",
+  plus: "M12 5v14M5 12h14",
+  close: "m5 5 14 14M5 19 19 5",
+  menu: "M4 7h16M8 12h12M4 17h16",
+  car: "M5 17H3v-5l2-5h14l2 5v5h-2M5 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0Zm10 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0ZM9 17h6M3 12h18",
+  ban: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM5.6 5.6l12.8 12.8",
+  shield:
+    "M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Zm-3.5 9 2.5 2.5 4.5-5",
+  sofa: "M4 11V8a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3M2 13a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v5H2Zm2 5v2m16-2v2",
+  dining: "M4 3v7a3 3 0 0 0 6 0V3M7 3v18M17 21V3c-2 1-3 4-3 8h3",
+  heart: "M12 20s-8-5-8-11a4.5 4.5 0 0 1 8-3 4.5 4.5 0 0 1 8 3c0 6-8 11-8 11Z",
+  compass: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm3.5-12.5-2 5-5 2 2-5 5-2Z",
+  mail: "M3 5h18v14H3ZM3 6l9 7 9-7",
+  camera: "M3 7h4l2-3h6l2 3h4v14H3ZM16 13a4 4 0 1 1-8 0 4 4 0 0 1 8 0",
+  "arrow-up": "M12 19V5m-6 6 6-6 6 6",
+};
+const classes = [name === "arrow" ? "icon-arrow" : "", cls]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  class={classes || undefined}
+>
+  <path d={paths[name] || paths.leaf}></path>
+</svg>

@@ -1,0 +1,167 @@
+---
+import Icon from "./Icon.astro";
+import WhatsAppIcon from "./WhatsAppIcon.astro";
+import { business, whatsapp } from "../data/site";
+interface Props {
+  booking?: boolean;
+}
+const { booking = false } = Astro.props;
+---
+
+<div class="form-panel">
+  <p class="eyebrow">{booking ? "Booking enquiry" : "Send a message"}</p>
+  <h2>{booking ? "Let’s plan your stay" : "How can we help?"}</h2>
+  <p class="form-intro">
+    {booking
+      ? "Share a few details. We’ll help you start a conversation with the homestay."
+      : "Room enquiries, travel plans or a simple question — get in touch."}
+  </p>
+  <noscript>
+    <div class="no-js-note">
+      This enquiry form needs JavaScript to prepare your message.{" "}
+      <a href={whatsapp}>Open WhatsApp</a> or{" "}
+      <a href={`tel:${business.tel}`}>call {business.phone}</a> to enquire
+      directly.
+    </div>
+  </noscript>
+  <form
+    data-enquiry={booking ? "booking" : "contact"}
+    data-date-form
+    action="#"
+    method="post"
+  >
+    <div class="form-grid">
+      <label class="form-field">
+        <span>Your name *</span>
+        <input
+          type="text"
+          name="guestName"
+          autocomplete="name"
+          required
+          minlength="2"
+          maxlength="80"
+          placeholder="Full name"
+        />
+      </label>
+      <label class="form-field">
+        <span>Mobile number *</span>
+        <input
+          type="tel"
+          name="phone"
+          autocomplete="tel"
+          required
+          minlength="7"
+          maxlength="24"
+          placeholder="Including country code"
+        />
+      </label>
+      {!booking && (
+        <>
+          <label class="form-field">
+            <span>
+              Email <small>(optional)</small>
+            </span>
+            <input
+              type="email"
+              name="email"
+              autocomplete="email"
+              maxlength="120"
+              placeholder="you@example.com"
+            />
+          </label>
+          <label class="form-field">
+            <span>Enquiry type</span>
+            <select name="enquiryType">
+              <option>Room availability</option>
+              <option>Directions & arrival</option>
+              <option>Facilities & arrangements</option>
+              <option>Other question</option>
+            </select>
+          </label>
+        </>
+      )}
+      <label class="form-field">
+        <span>Check-in {booking ? "*" : "(optional)"}</span>
+        <input type="date" name="checkin" required={booking} />
+      </label>
+      <label class="form-field">
+        <span>Check-out {booking ? "*" : "(optional)"}</span>
+        <input type="date" name="checkout" required={booking} />
+      </label>
+      <label class="form-field">
+        <span>Adults {booking ? "*" : ""}</span>
+        <select name="adults">
+          {Array.from({ length: 12 }, (_, i) => (
+            <option value={i + 1} selected={i === 1}>
+              {i + 1} {i === 0 ? "adult" : "adults"}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label class="form-field">
+        <span>Children</span>
+        <select name="children">
+          {Array.from({ length: 11 }, (_, i) => (
+            <option value={i}>
+              {i === 0
+                ? "No children"
+                : `${i} ${i === 1 ? "child" : "children"}`}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label class="form-field full">
+        <span>
+          {booking ? "Anything else we should know?" : "Your message *"}
+        </span>
+        <textarea
+          name="message"
+          rows="4"
+          maxlength="1500"
+          required={!booking}
+          placeholder={
+            booking
+              ? "Room arrangements, children’s ages, arrival plans or special requests…"
+              : "Tell us a little about your plans…"
+          }
+        ></textarea>
+      </label>
+      <p class="form-help full">
+        {booking && (
+          <>
+            For a larger group,{" "}
+            <a href={`tel:${business.tel}`}>give us a call</a>.{" "}
+          </>
+        )}
+        Room arrangements, facilities and prices are confirmed directly. By
+        continuing, you choose to share these details with the homestay via
+        WhatsApp. <a href="/privacy-policy/">Privacy information</a>.
+      </p>
+    </div>
+    <button class="btn form-submit" type="submit" disabled>
+      Prepare WhatsApp Enquiry <Icon name="arrow" size={18} />
+    </button>
+    <p class="form-status" role="status" aria-live="polite"></p>
+    <div class="enquiry-result" hidden>
+      <h3>Your enquiry is ready to review</h3>
+      <p>
+        Nothing has been sent yet. Open WhatsApp, review the message and press
+        Send there.
+      </p>
+      <pre></pre>
+      <a
+        class="btn btn-leaf"
+        href={whatsapp}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <WhatsAppIcon size={20} />
+        Open WhatsApp with My Enquiry
+      </a>
+      <p>
+        Your stay is confirmed only after you agree the details with the
+        homestay.
+      </p>
+    </div>
+  </form>
+</div>

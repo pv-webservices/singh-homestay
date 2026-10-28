@@ -1,0 +1,342 @@
+---
+import "@fontsource-variable/fraunces/opsz.css";
+import "@fontsource/dm-sans/latin-400.css";
+import "@fontsource/dm-sans/latin-500.css";
+import "@fontsource/dm-sans/latin-600.css";
+import "@fontsource/caveat/latin-500.css";
+import "../styles/global.css";
+import serifFont from "@fontsource-variable/fraunces/files/fraunces-latin-opsz-normal.woff2?url";
+import sansFont from "@fontsource/dm-sans/files/dm-sans-latin-400-normal.woff2?url";
+import Icon from "../components/Icon.astro";
+import WhatsAppIcon from "../components/WhatsAppIcon.astro";
+import { business, nav, whatsapp, houseRules } from "../data/site";
+interface Props {
+  title: string;
+  description: string;
+  home?: boolean;
+  noindex?: boolean;
+}
+const { title, description, home = false, noindex = false } = Astro.props;
+const path = Astro.url.pathname;
+const origin = Astro.site;
+const indexable =
+  import.meta.env.PUBLIC_INDEXABLE === "true" && !!origin && !noindex;
+const isCurrent = (href: string) =>
+  href === "/" ? path === "/" : path.startsWith(href);
+const canonical = origin ? new URL(path, origin).href : undefined;
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "LodgingBusiness",
+  name: business.name,
+  alternateName: business.altName,
+  telephone: business.tel,
+  ...(origin
+    ? {
+        url: origin.href,
+        image: new URL("/images/waterfall-1600.webp", origin).href,
+      }
+    : {}),
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Aruvikuzhi, Mlamala Puthuvel, Thengakal P.O.",
+    addressLocality: "Peerumedu, Idukki",
+    addressRegion: "Kerala",
+    postalCode: "685533",
+    addressCountry: "IN",
+  },
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} | Singh Homestay</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#063d36" />
+    <meta
+      name="robots"
+      content={indexable ? "index, follow" : "noindex, nofollow"}
+    />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={`${title} | Singh Homestay`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={business.name} />
+    <meta property="og:locale" content="en_IN" />
+    {origin && (
+      <>
+        <meta
+          property="og:image"
+          content={new URL("/images/waterfall-1600.webp", origin).href}
+        />
+        <meta property="og:url" content={canonical} />
+        <meta name="twitter:card" content="summary_large_image" />
+      </>
+    )}
+    {origin && <link rel="sitemap" href="/sitemap.xml" />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href={serifFont}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href={sansFont}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(schema).replace(/</g, "<")}
+    />
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
+  </head>
+  <body class:list={[home ? "home-page" : "inner-page"]} id="top">
+    <div class="load-bar" aria-hidden="true"></div>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <header class="site-header" data-header>
+      <div class="header-inner">
+        <a href="/" class="brand" aria-label="Singh Homestay home">
+          <img
+            src="/images/logo-320.webp"
+            srcset="/images/logo-320.webp 320w, /images/logo-640.webp 640w"
+            sizes="160px"
+            width="320"
+            height="165"
+            alt="Singh Homestay"
+            fetchpriority="high"
+          />
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          {nav.map(([href, label]) => (
+            <a href={href} aria-current={isCurrent(href) ? "page" : undefined}>
+              {label}
+            </a>
+          ))}
+        </nav>
+        <div class="header-actions">
+          <a class="header-call" href={`tel:${business.tel}`}>
+            <span class="icon-circle">
+              <Icon name="phone" size={17} />
+            </span>
+            <span class="call-text">{business.phone}</span>
+            <span class="visually-hidden">Call the homestay</span>
+          </a>
+          <a href="/book-your-stay/" class="btn btn-leaf btn-sm">
+            Book Your Stay <Icon name="arrow" size={17} />
+          </a>
+          <a
+            class="menu-toggle menu-nojs"
+            href="#site-drawer"
+            aria-label="Open menu"
+          >
+            <Icon name="menu" />
+          </a>
+          <button
+            class="menu-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="site-drawer"
+            aria-label="Open menu"
+          >
+            <Icon name="menu" />
+          </button>
+        </div>
+      </div>
+    </header>
+    <div class="drawer-backdrop" data-drawer-close aria-hidden="true"></div>
+    <div
+      class="drawer"
+      id="site-drawer"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Site menu"
+    >
+      <div class="drawer-top">
+        <img
+          src="/images/logo-320.webp"
+          width="320"
+          height="165"
+          alt="Singh Homestay"
+          loading="lazy"
+        />
+        <button
+          class="drawer-close"
+          type="button"
+          data-drawer-close
+          aria-label="Close menu"
+        >
+          <Icon name="close" size={22} />
+        </button>
+      </div>
+      <nav aria-label="Mobile navigation">
+        {[...nav, ["/book-your-stay/", "Book Your Stay"]].map(
+          ([href, label], i) => (
+            <a
+              href={href}
+              style={`--i:${i}`}
+              aria-current={isCurrent(href) ? "page" : undefined}
+            >
+              {label}
+              <Icon name="arrow-up-right" size={20} />
+            </a>
+          ),
+        )}
+      </nav>
+      <div class="drawer-contact">
+        <a class="btn btn-leaf" href={`tel:${business.tel}`}>
+          <Icon name="phone" size={18} /> Call {business.phone}
+        </a>
+        <a
+          class="btn btn-ghost-light"
+          href={whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <WhatsAppIcon size={20} /> Chat on WhatsApp
+        </a>
+        <p>Aruvikuzhi · Idukki · Kerala</p>
+      </div>
+    </div>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="wrap footer-top">
+        <div class="footer-brand">
+          <a href="/" aria-label="Singh Homestay home">
+            <img
+              src="/images/logo-320.webp"
+              srcset="/images/logo-320.webp 320w, /images/logo-640.webp 640w"
+              sizes="190px"
+              width="320"
+              height="165"
+              alt="Singh Homestay"
+              loading="lazy"
+            />
+          </a>
+          <p>
+            A peaceful homestay near Mlamala Waterfall, in the green hills of
+            Idukki.
+          </p>
+          <span class="footer-badge">
+            <Icon name="shield" size={18} />
+            {business.classification}
+          </span>
+        </div>
+        <div>
+          <h2>Explore</h2>
+          <ul>
+            {nav.map(([href, label]) => (
+              <li>
+                <a href={href}>{label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h2>Plan</h2>
+          <ul>
+            <li>
+              <a href="/book-your-stay/">Book Your Stay</a>
+            </li>
+            <li>
+              <a href="/rooms/homestay-rooms/">Homestay Rooms</a>
+            </li>
+            <li>
+              <a href="/nearby-places/mlamala-waterfall/">Mlamala Waterfall</a>
+            </li>
+            <li>
+              <a href="/nearby-places/peerumedu/">Peerumedu</a>
+            </li>
+            <li>
+              <a href="/faq/">FAQs</a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-contact-col">
+          <h2>Contact</h2>
+          <div class="footer-contact">
+            <a href={`tel:${business.tel}`}>
+              <Icon name="phone" size={18} />
+              {business.phone}
+            </a>
+            <a href="tel:+914869296094">
+              <Icon name="phone" size={18} />
+              {business.landline} (landline)
+            </a>
+            <a href={whatsapp} target="_blank" rel="noopener noreferrer">
+              <WhatsAppIcon size={18} /> WhatsApp the homestay
+            </a>
+            <a href={business.maps} target="_blank" rel="noopener noreferrer">
+              <Icon name="pin" size={18} />
+              <address>{business.address}</address>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        class="footer-word"
+        aria-hidden="true"
+        data-word="Singh Homestay"
+      ></div>
+      <div class="wrap footer-bottom">
+        <p>© {new Date().getFullYear()} Singh Homestay. All rights reserved.</p>
+        <p class="footer-rules">
+          {houseRules.map(([, title]) => title).join(" · ")}
+        </p>
+        <nav aria-label="Legal">
+          <a href="/privacy-policy/">Privacy</a>
+          <a href="/booking-policy/">Booking Policy</a>
+          <a href="#top" class="back-top" aria-label="Back to top">
+            <Icon name="arrow-up" size={18} />
+          </a>
+        </nav>
+      </div>
+    </footer>
+    <a
+      class="wa-float"
+      href={whatsapp}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat with Singh Homestay on WhatsApp"
+    >
+      <span class="wa-icon">
+        <WhatsAppIcon size={32} />
+      </span>
+    </a>
+    <dialog class="lightbox" aria-labelledby="lightbox-caption">
+      <button
+        type="button"
+        class="lightbox-close"
+        aria-label="Close photo viewer"
+      >
+        <Icon name="close" />
+      </button>
+      <div class="lightbox-frame">
+        <button type="button" class="lightbox-prev" aria-label="Previous photo">
+          <Icon name="chev-left" />
+        </button>
+        <img width="1600" height="1200" alt="" />
+        <button type="button" class="lightbox-next" aria-label="Next photo">
+          <Icon name="chev-right" />
+        </button>
+      </div>
+      <p id="lightbox-caption" aria-live="polite"></p>
+      <p class="lightbox-hint">Swipe or use ← → · Esc to close</p>
+    </dialog>
+    <script>
+      import "../scripts/site";
+    </script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Photo from "../components/Photo.astro";
+import Icon from "../components/Icon.astro";
+---
+
+<Layout
+  title="Page Not Found"
+  description="Find your way back to Singh Homestay and explore accommodation, photographs and nearby places in Idukki."
+  noindex
+>
+  <section class="page-hero error-page" aria-labelledby="page-title">
+    <Photo photo="ai-misty-ghats" eager sizes="100vw" />
+    <div class="page-hero-inner">
+      <p class="eyebrow light enter">A little off the beaten path</p>
+      <h1 id="page-title" class="enter" style="--d:1">
+        Let’s find your way back
+      </h1>
+      <p class="lead enter" style="--d:2">
+        We couldn’t find that page. A quieter getaway is still waiting.
+      </p>
+      <div class="btn-row enter" style="--d:3;margin-top:30px">
+        <a class="btn btn-leaf" href="/">
+          Back to the homestay <Icon name="arrow" size={18} />
+        </a>
+        <a class="btn btn-ghost-light" href="/contact-us/">
+          Contact us
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

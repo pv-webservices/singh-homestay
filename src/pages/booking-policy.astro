@@ -1,0 +1,94 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import { business } from "../data/site";
+const sections = [
+  ["enquiries", "Enquiries & Confirmation"],
+  ["arrangements", "Agreeing Your Stay"],
+  ["changes", "Changes & Cancellations"],
+  ["arrival", "Arrival & House Rules"],
+];
+---
+
+<Layout
+  title="Booking Policy · Enquiries & Stay Arrangements"
+  description="Understand the Singh Homestay enquiry process and which booking, payment, cancellation, arrival and house-rule details to agree directly before your stay."
+>
+  <PageHero
+    crumb="Booking & Enquiry Policy"
+    eyebrow="Plan with clarity"
+    title="Booking & Enquiry Information"
+    text="A few practical points to help you discuss and agree your stay directly with Singh Homestay."
+    compact
+  />
+  <div class="wrap">
+    <div class="policy-layout">
+      <nav class="policy-nav" aria-label="On this page">
+        {sections.map(([id, title]) => (
+          <a href={`#${id}`}>{title}</a>
+        ))}
+      </nav>
+      <article class="policy-copy">
+        <section id="enquiries">
+          <h2>Enquiries & Confirmation</h2>
+          <p>
+            This website helps you enquire about accommodation. It does not show
+            live room inventory, take payment or automatically reserve a room.
+          </p>
+          <p>
+            Preparing or sending a WhatsApp message does not confirm a booking.
+            Please obtain confirmation directly from the homestay after agreeing
+            on the dates, room arrangements, guest count, price and applicable
+            terms.
+          </p>
+        </section>
+        <section id="arrangements">
+          <h2>Agreeing Your Stay</h2>
+          <p>
+            Before confirming, ask for the total price, any applicable charges,
+            room capacity, bed arrangements, required facilities, check-in and
+            check-out times, payment arrangements and any identification
+            requirements.
+          </p>
+          <p>
+            All arrangements for meals, parking, children, extra guests,
+            accessibility or special requests should be confirmed directly.
+            Website photographs show the supplied accommodation and regional
+            landscapes; particular room allocation and views are not promised.
+          </p>
+        </section>
+        <section id="changes">
+          <h2>Changes & Cancellations</h2>
+          <p>
+            Cancellation deadlines, deposits, payment schedules and any refund
+            arrangements are not published on this website. Ask the homestay to
+            explain the terms that apply to your stay before you confirm or pay.
+          </p>
+          <p>
+            If your plans change, contact the homestay directly to discuss your
+            booking. Do not assume a change or cancellation is complete until it
+            has been acknowledged by the homestay.
+          </p>
+        </section>
+        <section id="arrival">
+          <h2>Arrival & House Rules</h2>
+          <p>
+            Ask for the exact arrival pin, current approach directions, arrival
+            time and the house rules before travelling. Confirm any rules
+            relating to parking, plastics, alcohol, tobacco, pets or visitors
+            directly.
+          </p>
+          <p>
+            To discuss these details, call{" "}
+            <a href={`tel:${business.tel}`}>{business.phone}</a> or{" "}
+            <a href="/contact-us/">contact the homestay</a>.
+          </p>
+          <div class="notice">
+            Please keep a record of the stay details and terms agreed directly
+            with the homestay.
+          </div>
+        </section>
+      </article>
+    </div>
+  </div>
+</Layout>

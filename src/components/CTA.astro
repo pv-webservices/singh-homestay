@@ -1,0 +1,40 @@
+---
+import Photo from "./Photo.astro";
+import Icon from "./Icon.astro";
+import WhatsAppIcon from "./WhatsAppIcon.astro";
+import { business, whatsapp } from "../data/site";
+---
+
+<section class="cta-band" aria-labelledby="cta-title">
+  <Photo photo="waterfall" sizes="100vw" />
+  <div class="wrap cta-inner on-dark">
+    <div data-reveal>
+      <p class="eyebrow">Plan your stay</p>
+      <h2 id="cta-title">
+        Ready for a peaceful <span class="script">getaway?</span>
+      </h2>
+      <p class="lead">
+        Share your dates and who’s coming along. Talk directly with the homestay
+        about rooms, availability and pricing for your stay in Aruvikuzhi.
+      </p>
+    </div>
+    <div class="cta-actions" data-reveal style="--i:1">
+      <a class="btn btn-leaf" href={`tel:${business.tel}`}>
+        <Icon name="phone" size={19} />
+        Call {business.phone}
+      </a>
+      <a
+        class="btn btn-light"
+        href={whatsapp}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <WhatsAppIcon size={21} />
+        Chat on WhatsApp
+      </a>
+      <a class="btn btn-ghost-light" href="/book-your-stay/">
+        Send a booking enquiry <Icon name="arrow" size={18} />
+      </a>
+    </div>
+  </div>
+</section>

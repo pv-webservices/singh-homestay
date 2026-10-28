@@ -1,0 +1,53 @@
+---
+import Icon from "./Icon.astro";
+---
+
+<div class="booking-dock enter" style="--d:5">
+  <form
+    class="booking-bar"
+    action="/book-your-stay/"
+    method="get"
+    data-date-form
+    aria-label="Check dates and enquire"
+  >
+    <label class="booking-field">
+      <Icon name="calendar" />
+      <span>
+        <span class="field-label">Check in</span>
+        <input type="date" name="checkin" aria-label="Check-in date" required />
+      </span>
+    </label>
+    <label class="booking-field">
+      <Icon name="calendar" />
+      <span>
+        <span class="field-label">Check out</span>
+        <input
+          type="date"
+          name="checkout"
+          aria-label="Check-out date"
+          required
+        />
+      </span>
+    </label>
+    <label class="booking-field">
+      <Icon name="people" />
+      <span>
+        <span class="field-label">Guests</span>
+        <select name="guests" aria-label="Number of guests">
+          {Array.from({ length: 12 }, (_, i) => (
+            <option value={i + 1} selected={i === 1}>
+              {i + 1} {i === 0 ? "Guest" : "Guests"}
+            </option>
+          ))}
+        </select>
+      </span>
+    </label>
+    <button class="btn" type="submit">
+      Check Availability <Icon name="arrow" size={18} />
+    </button>
+  </form>
+  <p class="booking-note">
+    This sends an enquiry, not a booking. Availability and pricing are confirmed
+    directly by the homestay.
+  </p>
+</div>

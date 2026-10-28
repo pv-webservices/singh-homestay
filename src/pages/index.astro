@@ -1,0 +1,492 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Photo from "../components/Photo.astro";
+import Icon from "../components/Icon.astro";
+import WhatsAppIcon from "../components/WhatsAppIcon.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import BookingBar from "../components/BookingBar.astro";
+import Gallery from "../components/Gallery.astro";
+import CTA from "../components/CTA.astro";
+import { business, whatsapp, houseRules, faq } from "../data/site";
+
+const marquee = [
+  "Aruvikuzhi",
+  "Mlamala Waterfall",
+  "Peerumedu",
+  "Tea & spice country",
+  "Idukki",
+  "Kerala",
+];
+const stay = [
+  {
+    cls: "b-1",
+    photo: "room-wide",
+    title: "Homestay bedrooms",
+    text: "Wooden beds, warm colours, a familiar feel",
+  },
+  {
+    cls: "b-2",
+    photo: "veranda",
+    title: "The sit-out",
+    text: "Unhurried hours under a sheltered roof",
+  },
+  {
+    cls: "b-3",
+    photo: "twin-beds",
+    title: "Twin beds",
+    text: "Room for friends and family",
+  },
+  {
+    cls: "b-4",
+    photo: "dining",
+    title: "Dining space",
+    text: "Share a table together",
+  },
+] as const;
+const amenities = [
+  ["bed", "Double & twin beds", "Arrangements for your group"],
+  ["sofa", "Sit-out & lounge", "Shared spaces to relax"],
+  ["dining", "Dining space", "A table to gather around"],
+  ["car", "Guest parking", "For customers only"],
+  ["people", "Family friendly", "Comfortable for families"],
+  ["leaf", "Green surroundings", "Fresh air, quiet days"],
+];
+const places = [
+  {
+    href: "/nearby-places/mlamala-waterfall/",
+    photo: "waterfall",
+    tag: "Near the homestay",
+    title: "Mlamala Waterfall",
+    text: "Water over broad rock, framed by dense forest — the cascade that gives this corner of Idukki its character.",
+  },
+  {
+    href: "/nearby-places/peerumedu/",
+    photo: "ai-tea-slopes",
+    tag: "Hill region",
+    title: "Peerumedu",
+    text: "A hill region known for tea, coffee and spice plantations, and sweeping green slopes.",
+  },
+  {
+    href: "/nearby-places/#landscapes",
+    photo: "hills",
+    tag: "Landscapes",
+    title: "Idukki hills",
+    text: "Cultivated slopes, forested ridges and long views — time to slow down and look around.",
+  },
+  {
+    href: "/nearby-places/peerumedu/",
+    photo: "ai-spice-still",
+    tag: "Spice country",
+    title: "Cardamom & pepper",
+    text: "Cardamom and other spice plantations are part of the Peerumedu landscape around your stay.",
+  },
+] as const;
+---
+
+<Layout
+  title="Your Home in Nature · Homestay near Mlamala Waterfall, Idukki"
+  description="Singh Homestay in Aruvikuzhi, Idukki — a Kerala Tourism classified homestay near Mlamala Waterfall. Real rooms, warm hosts and direct enquiries by phone or WhatsApp."
+  home
+>
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-media" data-parallax="0.18">
+      <Photo photo="waterfall" eager sizes="(max-width: 640px) 900px, 100vw" />
+    </div>
+    <div class="hero-content">
+      <div class="hero-copy">
+        <p class="hero-kicker enter">
+          <span>
+            <Icon name="pin" size={15} />
+          </span>
+          Aruvikuzhi, Idukki · near Mlamala Waterfall
+        </p>
+        <h1 id="hero-title" class="enter" style="--d:1">
+          Your Home in <span class="script">Nature</span>
+        </h1>
+        <p class="hero-lead enter" style="--d:2">
+          A peaceful, family-friendly homestay in Kerala’s green hills — real
+          rooms, a warm welcome and the Mlamala waterfall close by.
+        </p>
+        <div class="btn-row enter" style="--d:3">
+          <a class="btn btn-leaf" href="/book-your-stay/">
+            Book Your Stay <Icon name="arrow" size={18} />
+          </a>
+          <a class="btn btn-ghost-light" href="/rooms/">
+            See the Rooms
+          </a>
+        </div>
+        <ul class="hero-trust enter" style="--d:4">
+          <li>
+            <Icon name="shield" size={18} /> Kerala Tourism classified
+          </li>
+          <li>
+            <Icon name="chat" size={18} /> Book directly with the host
+          </li>
+          <li>
+            <Icon name="leaf" size={18} /> Plastic-free stay
+          </li>
+        </ul>
+      </div>
+      <a
+        class="hero-card enter"
+        style="--d:4"
+        href="/nearby-places/mlamala-waterfall/"
+      >
+        <span class="frame">
+          <Photo photo="cascade" sizes="90px" />
+        </span>
+        <span>
+          <strong>Mlamala Waterfall</strong>
+          <small>Close to the homestay</small>
+        </span>
+        <Icon name="arrow-up-right" size={20} class="card-arrow" />
+      </a>
+    </div>
+  </section>
+  <BookingBar />
+
+  <!-- Intro -->
+  <section class="section" aria-labelledby="intro-title">
+    <div class="wrap">
+      <div class="intro">
+        <div class="intro-copy" data-reveal>
+          <p class="eyebrow">Welcome to Singh Homestay</p>
+          <h2 id="intro-title" class="intro-statement">
+            A quiet, green corner of Idukki where you can <em>slow down</em>,
+            spend time together and feel at home.
+          </h2>
+          <p class="lead">
+            Singh Homestay — also known as {business.altName} — sits in
+            Aruvikuzhi, Mlamala Puthuvel, in the Peerumedu taluk of Kerala’s
+            Idukki district. It is a simple, welcoming base for families and
+            friends who want waterfalls, plantation hills and fresh air without
+            the rush.
+          </p>
+          <div class="host">
+            <span class="host-photo">
+              <img
+                src="/images/sanjay-singh-director-profile.webp"
+                width="540"
+                height="720"
+                alt="Portrait of Sanjay Singh, Managing Director of Singh Homestay"
+                loading="lazy"
+                decoding="async"
+              />
+            </span>
+            <span>
+              <span class="host-name">{business.host}</span>
+              <small>{business.hostRole}, Singh Homestay</small>
+            </span>
+          </div>
+          <a class="link-arrow" href="/about-us/">
+            Our story <Icon name="arrow" size={18} />
+          </a>
+        </div>
+        <div class="intro-collage">
+          <div class="frame tall" data-reveal="image">
+            <Photo photo="exterior" sizes="(max-width: 980px) 50vw, 25vw" />
+          </div>
+          <div class="frame short" data-reveal="image" style="--i:1">
+            <Photo photo="veranda" sizes="(max-width: 980px) 50vw, 25vw" />
+          </div>
+          <div class="badge-card" data-reveal style="--i:2">
+            <Icon name="shield" size={30} />
+            <strong>Classified homestay</strong>
+            <small>Department of Tourism, Kerala</small>
+          </div>
+        </div>
+      </div>
+      <div class="fact-grid" data-reveal>
+        <div class="fact">
+          <Icon name="pin" size={26} />
+          <div>
+            <strong>Aruvikuzhi, Idukki</strong>
+            <span>Mlamala Puthuvel, Thengakal P.O.</span>
+          </div>
+        </div>
+        <div class="fact">
+          <Icon name="water" size={26} />
+          <div>
+            <strong>Waterfall country</strong>
+            <span>The Mlamala waterfall area nearby</span>
+          </div>
+        </div>
+        <div class="fact">
+          <Icon name="chat" size={26} />
+          <div>
+            <strong>Direct with the host</strong>
+            <span>Call or WhatsApp — no middlemen</span>
+          </div>
+        </div>
+        <div class="fact">
+          <Icon name="people" size={26} />
+          <div>
+            <strong>Families & small groups</strong>
+            <span>Double and twin bed arrangements</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      {[0, 1].map(() => (
+        <div class="marquee-group">
+          {[...marquee, ...marquee].map((word) => (
+            <span>{word}</span>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Stay -->
+  <section class="section bg-paper" aria-labelledby="stay-title">
+    <div class="wrap">
+      <SectionHeading
+        eyebrow="Inside the homestay"
+        title="Comfortable rooms for a <em>relaxing</em> stay"
+        text="Clean rooms, cosy beds and shared spaces to unwind. Every photograph here shows the real homestay."
+        href="/rooms/"
+        link="Explore the rooms"
+        id="stay-title"
+      />
+      <div class="stay-bento">
+        {stay.map((item, i) => (
+          <a
+            class:list={["bento-item zoom", item.cls]}
+            href="/rooms/homestay-rooms/"
+            data-reveal
+            style={`--i:${i}`}
+          >
+            <Photo
+              photo={item.photo}
+              sizes={
+                i === 0
+                  ? "(max-width: 980px) 100vw, 42vw"
+                  : "(max-width: 640px) 50vw, 33vw"
+              }
+            />
+            <span class="bento-label">
+              <span>
+                <strong>{item.title}</strong>
+                <small>{item.text}</small>
+              </span>
+              <span class="round-arrow">
+                <Icon name="arrow-up-right" size={18} />
+              </span>
+            </span>
+          </a>
+        ))}
+        <div class="bento-item bento-note b-5" data-reveal style="--i:4">
+          <Icon name="bed" size={30} />
+          <div>
+            <strong style="font:450 1.3rem/1.2 var(--serif)">
+              Clean rooms. Cosy beds. Peaceful stay.
+            </strong>
+            <p>Tell us your group size — we’ll suggest the right rooms.</p>
+          </div>
+        </div>
+      </div>
+      <ul class="amenity-row">
+        {amenities.map(([icon, title, text], i) => (
+          <li data-reveal style={`--i:${i}`}>
+            <Icon name={icon} size={28} />
+            <span>
+              {title}
+              <small>{text}</small>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Explore -->
+  <section class="section" aria-labelledby="explore-title">
+    <div class="wrap explore">
+      <div class="explore-intro" data-reveal>
+        <p class="eyebrow">Explore around</p>
+        <h2 id="explore-title">
+          Waterfalls, tea hills & <span class="script">spice air</span>
+        </h2>
+        <p class="lead">
+          Stay close to the Mlamala waterfall and make time for the wider
+          Peerumedu region — known for its tea, coffee and spice plantations.
+          Ask us for current directions and conditions before you set out.
+        </p>
+        <a class="btn" href="/nearby-places/">
+          Explore nearby places <Icon name="arrow" size={18} />
+        </a>
+      </div>
+      <div class="explore-list">
+        {places.map((place) => (
+          <a class="place-card" href={place.href} data-reveal>
+            <span class="frame zoom">
+              <Photo
+                photo={place.photo}
+                sizes="(max-width: 980px) 100vw, 30vw"
+              />
+            </span>
+            <span class="place-body">
+              <span class="tag">{place.tag}</span>
+              <h3>{place.title}</h3>
+              <p>{place.text}</p>
+              <span class="round-arrow">
+                <Icon name="arrow-up-right" size={18} />
+              </span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote band -->
+  <section class="quote-band" aria-label="The feeling of a stay">
+    <div class="parallax" data-parallax="0.22">
+      <Photo photo="ai-misty-ghats" sizes="100vw" />
+    </div>
+    <blockquote data-reveal>
+      <p class="eyebrow light">Idukki, Kerala</p>
+      <p>
+        Come for the landscapes.
+        <br />
+        Stay for the <span class="script">feeling.</span>
+      </p>
+    </blockquote>
+  </section>
+
+  <!-- How booking works -->
+  <section class="steps-band section" aria-labelledby="steps-title">
+    <Photo photo="ai-monsoon-leaves" sizes="100vw" />
+    <div class="wrap steps-inner on-dark">
+      <div data-reveal>
+        <p class="eyebrow">Booking made simple</p>
+        <h2 id="steps-title">
+          Three steps to your <span class="script">stay</span>
+        </h2>
+        <p class="lead">
+          No complicated booking engine. You talk directly with the homestay,
+          ask what matters to you and agree the details before you travel.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn-leaf" href="/book-your-stay/">
+            Start your enquiry <Icon name="arrow" size={18} />
+          </a>
+          <a
+            class="btn btn-ghost-light"
+            href={whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <WhatsAppIcon size={20} /> WhatsApp
+          </a>
+        </div>
+        <div class="contact-strip">
+          <span>Prefer to call?</span>
+          <a href={`tel:${business.tel}`}>{business.phone}</a>
+          <a href="tel:+914869296094">{business.landline}</a>
+        </div>
+      </div>
+      <ol class="step-list">
+        <li data-reveal>
+          <div>
+            <h3>Choose your dates</h3>
+            <p>
+              Pick arrival and departure dates and tell us how many adults and
+              children are coming.
+            </p>
+          </div>
+        </li>
+        <li data-reveal style="--i:1">
+          <div>
+            <h3>Send your enquiry</h3>
+            <p>
+              We prepare a WhatsApp message for you to review and send — or
+              simply call us.
+            </p>
+          </div>
+        </li>
+        <li data-reveal style="--i:2">
+          <div>
+            <h3>Confirm with the host</h3>
+            <p>
+              The homestay confirms rooms, price and arrangements directly with
+              you. Then pack your bags.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section" aria-labelledby="gallery-title">
+    <div class="wrap">
+      <SectionHeading
+        eyebrow="Gallery"
+        title="Moments from Singh Homestay"
+        href="/gallery/"
+        link="View full gallery"
+        id="gallery-title"
+      />
+      <Gallery items={["waterfall", "room", "veranda", "cascade", "hills"]} />
+    </div>
+  </section>
+
+  <!-- Good to know -->
+  <section class="section bg-sage" aria-labelledby="know-title">
+    <div class="wrap">
+      <SectionHeading
+        eyebrow="Good to know"
+        title="Before you arrive"
+        href="/faq/"
+        link="All questions"
+        id="know-title"
+      />
+      <div class="know-grid">
+        <div class="rules-card" data-reveal>
+          <h3>House rules</h3>
+          <p>
+            From our signboard — thank you for helping us keep the homestay
+            peaceful.
+          </p>
+          <ul class="rule-list">
+            {houseRules.map(([icon, title, text]) => (
+              <li>
+                <span class="rule-icon">
+                  <Icon name={icon} size={22} />
+                </span>
+                <span>
+                  <strong>{title}</strong>
+                  <span>{text}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+          <div class="credential">
+            <Icon name="shield" size={30} />
+            <span>
+              <strong>Classified by the Department of Tourism, Kerala</strong>
+              <small>Homestay classification scheme</small>
+            </span>
+          </div>
+        </div>
+        <div class="faq-list" data-reveal style="--i:1">
+          {faq.slice(0, 5).map(([question, answer], i) => (
+            <details open={i === 0}>
+              <summary>{question}</summary>
+              <p>{answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Layout>

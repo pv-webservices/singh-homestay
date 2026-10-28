@@ -1,0 +1,98 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import { business } from "../data/site";
+const sections = [
+  ["details", "Details You Choose to Share"],
+  ["whatsapp", "WhatsApp Enquiries"],
+  ["website", "Using This Website"],
+  ["questions", "Privacy Questions"],
+];
+---
+
+<Layout
+  title="Privacy Policy · Website & Enquiry Information"
+  description="Learn how the Singh Homestay website prepares enquiries, what you choose to share via WhatsApp and how to contact the homestay about your information."
+>
+  <PageHero
+    crumb="Privacy Policy"
+    eyebrow="Your information"
+    title="Privacy & Enquiries"
+    text="A clear explanation of how this website helps you get in touch with Singh Homestay."
+    compact
+  />
+  <div class="wrap">
+    <div class="policy-layout">
+      <nav class="policy-nav" aria-label="On this page">
+        {sections.map(([id, title]) => (
+          <a href={`#${id}`}>{title}</a>
+        ))}
+      </nav>
+      <article class="policy-copy">
+        <section id="details">
+          <h2>Details You Choose to Share</h2>
+          <p>
+            Our enquiry forms ask for your name, mobile number, travel dates and
+            group details. The contact form also provides an optional email
+            field. You may add a message or special requests.
+          </p>
+          <p>
+            Please include only the information needed to discuss your stay. Do
+            not include payment card details, identity documents or sensitive
+            personal information in an initial enquiry.
+          </p>
+        </section>
+        <section id="whatsapp">
+          <h2>WhatsApp Enquiries</h2>
+          <p>
+            Submitting a form prepares a message in your browser. It does not
+            send your details to the homestay automatically. You can review the
+            message, open WhatsApp and choose whether to send it there.
+          </p>
+          <p>
+            Once you choose to send a message, WhatsApp processes it under its
+            own terms and privacy information. The homestay receives the details
+            you send so that it can discuss your enquiry and arrangements.
+            Contact the homestay directly for questions about information held
+            in its correspondence.
+          </p>
+        </section>
+        <section id="website">
+          <h2>Using This Website</h2>
+          <p>
+            This website has no guest account system, payment form or analytics
+            scripts. Fonts and website photographs are served with the site. The
+            form does not save your enquiry to browser storage or a website
+            database.
+          </p>
+          <p>
+            Dates and guest counts entered in the homepage enquiry bar appear in
+            the booking page URL and may remain in your browser history.
+            Personal contact details entered on the enquiry page are used to
+            prepare the WhatsApp message in that page.
+          </p>
+          <p>
+            Telephone, WhatsApp, Google Maps and tourism links open services
+            outside this website. Their own privacy information applies when you
+            use them. Technical connection logs depend on the hosting service
+            used for the website.
+          </p>
+        </section>
+        <section id="questions">
+          <h2>Privacy Questions</h2>
+          <p>
+            To ask about your enquiry information, or to request a correction or
+            discuss removal of information from homestay correspondence, call{" "}
+            <a href={`tel:${business.tel}`}>{business.phone}</a>. The homestay
+            can discuss your request directly.
+          </p>
+          <p>
+            {business.name}
+            <br />
+            {business.address}
+          </p>
+        </section>
+      </article>
+    </div>
+  </div>
+</Layout>

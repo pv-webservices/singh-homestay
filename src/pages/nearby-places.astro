@@ -1,0 +1,77 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Photo from "../components/Photo.astro";
+import Icon from "../components/Icon.astro";
+import CTA from "../components/CTA.astro";
+import { places } from "../data/site";
+---
+
+<Layout
+  title="Nearby Places · Mlamala Waterfall & Peerumedu"
+  description="Discover the Mlamala waterfall area and Peerumedu’s tea, coffee and spice plantation landscapes from a homestay base in Aruvikuzhi, Idukki."
+>
+  <PageHero
+    photo="ai-misty-ghats"
+    crumb="Nearby Places"
+    eyebrow="Explore around"
+    title="Waterfalls, tea hills and spice air"
+    text="Water over stone, hills in the distance and a greener road ahead. Take a little time to discover this part of Kerala."
+  />
+  <section class="section">
+    <div class="wrap">
+      {places.map((place, i) => (
+        <article class="destination">
+          <a
+            class="frame zoom"
+            href={`/nearby-places/${place.slug}/`}
+            aria-label={`Explore ${place.title}`}
+            data-reveal="image"
+          >
+            <Photo photo={place.image} sizes="(max-width: 980px) 100vw, 55vw" />
+          </a>
+          <div data-reveal>
+            <span class="destination-num">0{i + 1}</span>
+            <p class="eyebrow">{place.label}</p>
+            <h2>{place.title}</h2>
+            <p class="lead">{place.description}</p>
+            <a class="btn" href={`/nearby-places/${place.slug}/`}>
+              Take a closer look <Icon name="arrow" size={18} />
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+  <section class="section bg-paper" id="landscapes">
+    <div class="wrap split">
+      <div data-reveal>
+        <p class="eyebrow">The wider Idukki landscape</p>
+        <h2>
+          Leave a little room for the <span class="script">journey</span>
+        </h2>
+        <p class="lead">
+          Green hills, cultivated slopes and forested ridges shape the wider
+          landscape around Aruvikuzhi.
+        </p>
+        <p>
+          Ask us about places that suit your plans and the conditions during
+          your visit. Routes, access and travel arrangements are best discussed
+          before you set out.
+        </p>
+        <a class="link-arrow" href="/contact-us/">
+          Ask about exploring the area <Icon name="arrow" size={18} />
+        </a>
+      </div>
+      <div class="split-media" data-reveal="image">
+        <div class="frame">
+          <Photo photo="hills" sizes="(max-width: 980px) 100vw, 45vw" />
+        </div>
+        <div class="frame floating">
+          <Photo photo="plantations" sizes="25vw" />
+        </div>
+      </div>
+    </div>
+  </section>
+  <CTA />
+</Layout>
