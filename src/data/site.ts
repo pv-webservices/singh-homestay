@@ -10,7 +10,7 @@ export const business = {
   hostRole: "Managing Director",
   altName: "Singh House Homestay",
   // From the Department of Tourism, Kerala homestay classification certificate
-  // and the property signage in source-assets/.
+  // and the property signage in source-files/.
   classification: "Classified homestay · Department of Tourism, Kerala",
   maps:
     "https://www.google.com/maps/search/?api=1&query=" +
@@ -18,13 +18,25 @@ export const business = {
       "Singh House Homestay, Aruvikuzhi, Mlamala Puthuvel, Thengakal, Idukki, Kerala 685533",
     ),
 };
-export const whatsapp =
-  "https://wa.me/" +
-  business.whatsapp +
-  "?text=" +
-  encodeURIComponent(
-    "Hello Singh Homestay, I would like to enquire about a stay. Please share availability and pricing.",
-  );
+export const pageNames: Record<string, string> = {
+  "/": "Home",
+  "/about-us/": "About Us",
+  "/rooms/": "Rooms",
+  "/rooms/homestay-rooms/": "Homestay Rooms",
+  "/gallery/": "Gallery",
+  "/nearby-places/": "Nearby Places",
+  "/nearby-places/mlamala-waterfall/": "Mlamala Waterfall",
+  "/nearby-places/peerumedu/": "Peerumedu",
+  "/contact-us/": "Contact Us",
+  "/book-your-stay/": "Book Your Stay",
+  "/faq/": "Frequently Asked Questions",
+  "/privacy-policy/": "Privacy Policy",
+  "/booking-policy/": "Booking Policy",
+};
+export const whatsappFor = (path: string) =>
+  `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(
+    `Hello Singh Homestay, I would like to enquire about ${pageNames[path] || "a stay"}. Source: https://singhhomestay.in${path}`,
+  )}`;
 // Rules printed on the property signboard.
 export const houseRules = [
   [

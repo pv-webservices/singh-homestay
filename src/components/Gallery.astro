@@ -37,7 +37,7 @@ const sizes =
     {items.map((key, i) => (
       <a
         class="gallery-tile zoom"
-        href={`/images/${photos[key].name}-${Math.min(1600, photos[key].width)}.webp`}
+        href={`/images/${photos[key].name.startsWith("ai-") ? "editorial" : "property"}/${photos[key].name}-${Math.min(1600, photos[key].width)}.webp`}
         data-category={photos[key].category}
         data-caption={photos[key].caption}
         data-gallery-item

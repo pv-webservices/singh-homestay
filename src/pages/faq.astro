@@ -4,11 +4,13 @@ import PageHero from "../components/PageHero.astro";
 import Icon from "../components/Icon.astro";
 import WhatsAppIcon from "../components/WhatsAppIcon.astro";
 import CTA from "../components/CTA.astro";
-import { business, faq, whatsapp, houseRules } from "../data/site";
+import { business, faq, whatsappFor, houseRules } from "../data/site";
+
+const whatsapp = whatsappFor(Astro.url.pathname);
 ---
 
 <Layout
-  title="Frequently Asked Questions · Planning Your Stay"
+  title="FAQs · Planning Your Stay"
   description="Answers about enquiries, directions to Aruvikuzhi, room arrangements, house rules and the details to confirm before booking at Singh Homestay."
 >
   <PageHero

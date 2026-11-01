@@ -8,6 +8,7 @@ import {
   validPhone,
   composeEnquiry,
   whatsappUrl,
+  validateEnquiry,
 } from "../src/lib/enquiry.mjs";
 
 test("calendar dates reject rollover and handle leap years", () => {
@@ -36,7 +37,46 @@ test("contact numbers have usable digits", () => {
   assert.equal(validPhone("+91 92880 56157"), true);
   assert.equal(validPhone("abcdefghij"), false);
   assert.equal(validPhone("123"), false);
+  assert.equal(validPhone("123456789"), false);
+  assert.equal(validPhone("1234567890"), true);
+  assert.equal(validPhone("+91+9000000000"), false);
   assert.equal(validPhone("1234567890123456"), false);
+});
+
+test("programmatic values must meet the same name, phone, message, date and party constraints", () => {
+  const data = {
+    guestName: "Asha",
+    phone: "+91 90000 00000",
+    adults: "2",
+    children: "0",
+    enquiryType: "Room availability",
+    message: "Room enquiry",
+  };
+  assert.deepEqual(validateEnquiry(data, false), {});
+  for (const [field, value] of Object.entries({
+    guestName: "x".repeat(81),
+    phone: "123456789",
+    adults: "999",
+    children: "-1",
+    enquiryType: "injected",
+    message: " ",
+  })) {
+    assert.ok(
+      validateEnquiry({ ...data, [field]: value }, false)[field],
+      field,
+    );
+  }
+  assert.ok(
+    validateEnquiry({ ...data, message: "x".repeat(1501) }, false).message,
+  );
+  assert.ok(validateEnquiry(data, true).checkin);
+  assert.ok(
+    validateEnquiry(
+      { ...data, checkin: "2000-01-01", checkout: "2000-01-02" },
+      true,
+    ).checkin,
+  );
+  assert.doesNotMatch(composeEnquiry({ ...data, email: "ignored" }), /email/i);
 });
 test("structured message retains names, dates and children without confirming a booking", () => {
   const message = composeEnquiry({

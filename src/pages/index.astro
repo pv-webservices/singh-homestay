@@ -7,7 +7,7 @@ import SectionHeading from "../components/SectionHeading.astro";
 import BookingBar from "../components/BookingBar.astro";
 import Gallery from "../components/Gallery.astro";
 import CTA from "../components/CTA.astro";
-import { business, whatsapp, houseRules, faq } from "../data/site";
+import { business, whatsappFor, houseRules, faq } from "../data/site";
 
 const marquee = [
   "Aruvikuzhi",
@@ -81,10 +81,12 @@ const places = [
     text: "Cardamom and other spice plantations are part of the Peerumedu landscape around your stay.",
   },
 ] as const;
+
+const whatsapp = whatsappFor(Astro.url.pathname);
 ---
 
 <Layout
-  title="Your Home in Nature · Homestay near Mlamala Waterfall, Idukki"
+  title="Homestay near Mlamala Waterfall, Idukki"
   description="Singh Homestay in Aruvikuzhi, Idukki — a Kerala Tourism classified homestay near Mlamala Waterfall. Real rooms, warm hosts and direct enquiries by phone or WhatsApp."
   home
 >
@@ -166,7 +168,9 @@ const places = [
           <div class="host">
             <span class="host-photo">
               <img
-                src="/images/sanjay-singh-director-profile.webp"
+                src="/images/people/sanjay-singh-director-profile.webp"
+              srcset="/images/people/sanjay-singh-director-profile-160.webp 160w, /images/people/sanjay-singh-director-profile.webp 540w"
+              sizes="68px"
                 width="540"
                 height="720"
                 alt="Portrait of Sanjay Singh, Managing Director of Singh Homestay"

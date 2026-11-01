@@ -1,13 +1,16 @@
 async (page) => {
+  await page.goto('about:blank');
+  const testContext = await page.context().browser().newContext();
+  page = await testContext.newPage();
   const origin = 'http://127.0.0.1:4321';
-  const routes = ['/', '/about-us/', '/rooms/', '/rooms/homestay-rooms/', '/gallery/', '/nearby-places/', '/nearby-places/mlamala-waterfall/', '/nearby-places/peerumedu/', '/contact-us/', '/book-your-stay/', '/faq/', '/privacy-policy/', '/booking-policy/'];
+  const routes = ['/', '/about-us/', '/rooms/', '/rooms/homestay-rooms/', '/gallery/', '/nearby-places/', '/nearby-places/mlamala-waterfall/', '/nearby-places/peerumedu/', '/contact-us/', '/book-your-stay/', '/faq/', '/privacy-policy/', '/booking-policy/', '/audit-missing/'];
   const errors = [];
   const brokenRequests = [];
   page.on('pageerror', e => errors.push(e.message));
-  page.on('response', response => { if (response.url().startsWith(origin) && response.status() >= 400) brokenRequests.push(response.url()+': '+response.status()); });
+  page.on('response', response => { if (response.url().startsWith(origin) && !response.url().includes('/audit-missing/') && response.status() >= 400) brokenRequests.push(response.url()+': '+response.status()); });
   const results = [];
   const internalLinks = new Set();
-  for (const width of [320,768,1440]) {
+  for (const width of [320,375,768,1024,1440]) {
     await page.setViewportSize({width,height:1000});
     for (const route of routes) {
       const response = await page.goto(origin+route);
@@ -33,7 +36,7 @@ async (page) => {
       }));
       metrics.links.forEach(link=>internalLinks.add(link.split('#')[0].split('?')[0]));
       const failures=[];
-      if (response.status()!==200) failures.push('HTTP '+response.status());
+      if (response.status()!==(route === '/audit-missing/' ? 404 : 200)) failures.push('HTTP '+response.status());
       if(metrics.h1!==1)failures.push('h1 count '+metrics.h1);
       if(metrics.scrollWidth>metrics.width+1)failures.push('horizontal overflow '+metrics.scrollWidth);
       if(!metrics.description)failures.push('missing description');
@@ -59,5 +62,7 @@ async (page) => {
     const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1);
     results.push({route:'/',width:viewport.width,height:viewport.height,failures:overflow?['overflow']:[]});
   }
-  return {checks:results.length,results,linkResults,errors,brokenRequests};
+  const report = {checks:results.length,results,linkResults,errors,brokenRequests};
+  await testContext.close();
+  return report;
 }

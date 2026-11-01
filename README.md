@@ -1,81 +1,80 @@
 # Singh Homestay
 
-A static, multi-page Astro business website based on the supplied homepage reference, logo and real business photographs. No React runtime, account system, payment flow or booking inventory.
+Static Astro 7 website for https://singhhomestay.in/. Node.js 22.12+ is required. No booking inventory, payments, accounts, submission database or delivery backend exists. Enquiries are prepared in the browser for the visitor to review and send through WhatsApp.
 
-## Run locally
-
-Requires Node.js 22.12+ (developed with Node.js 24.19).
+## Local commands
 
 ```powershell
-npm install
+npm ci
 npm run dev
-```
-
-Production build and preview:
-
-```powershell
 npm test
 npm run check
 npm run build
+npm run audit
 npm run preview -- --port 4321
 ```
 
-Open [the local preview](http://127.0.0.1:4321/). Deploy **only `dist/`** to a static host; do not upload the project directory or `source-assets/`. Configure the host to serve the generated `404.html` for unknown routes.
+`npm run audit` checks all generated HTML, metadata lengths/uniqueness, H1/heading order, indexability/canonicals, social metadata, JSON-LD, image attributes, internal files/fragments, contact destinations and sitemap consistency. `npm run verify:output` is an alias. Run after building.
 
-## Pages
-
-Home, About Us, Rooms, Homestay Rooms detail, Gallery, Nearby Places, Mlamala Waterfall detail, Peerumedu detail, Contact Us, Book Your Stay, FAQ, Privacy Policy, and Booking & Enquiry Policy. A custom 404 page is also included.
-
-There is one homepage source, `src/pages/index.astro`. Astro generates an `index.html` for each route in `dist/`; these are the normal output of a multi-page website, not duplicate homepage implementations. The supplied `html file.html` is replaced by the finished site.
-
-## Content and design
-
-- `src/data/site.ts`: business contacts, navigation, photo captions, attractions and FAQs.
-- `src/styles/global.css`: design tokens (see `DESIGN.md`), components, motion and responsive styles.
-- `src/layouts/Layout.astro`: shared navigation, footer, metadata, structured data and photo viewer.
-- `src/components/`: page hero, photo, gallery, booking bar, enquiry form, section heading, WhatsApp icon and CTA components.
-- `src/scripts/site.ts`: navigation, progressive reveals, gallery filters/lightbox and enquiry behavior.
-- `src/lib/enquiry.mjs`: calendar validation and WhatsApp message creation, covered by unit tests.
-- `DESIGN.md`: reference interpretation, content boundaries and skills used.
-- `ASSETS.md`: original-to-optimized asset mapping and provenance.
-- `QA.md`: results and the limits of local verification.
-
-## Enquiries
-
-The homepage bar validates dates and carries them, with party size, to `/book-your-stay/` through a GET URL. The enquiry page preselects that party size as adults; visitors can adjust adults and children before preparing the final message.
-
-The booking and contact forms validate the details and show an enquiry summary. The visitor then opens WhatsApp with a correctly encoded message, reviews it and presses Send in WhatsApp. The site does not send automatically or claim delivery or availability. No credentials, email service or server database are required. Without JavaScript, telephone and direct WhatsApp links remain available; gallery photos open as normal image links and FAQs use native disclosures.
-
-## Before a public launch
-
-1. Confirm the exact production origin. `singhhomestay.in` appears in the supplied business materials but deployment and domain ownership were not verified.
-2. Confirm the business address spelling, WhatsApp recipient and exact Google Maps arrival pin. Current Maps buttons are explicitly labelled searches.
-3. Obtain approval for the public copy and privacy/enquiry information. Agree actual room capacity, facilities, check-in/out times, payments, cancellations and house rules directly with the client before publishing those specifics.
-4. Keep personal portraits and certificate scans private. They are preserved in `source-assets/`, outside Astro’s public folder and ignored by Git. No personal portrait is used on the site.
-5. Copy `.env.example` to `.env`, set `PUBLIC_SITE_URL` to the confirmed HTTPS origin, and enable `PUBLIC_INDEXABLE=true` only for the approved public site. Rebuild after changing these values. Preview builds default to noindex and `Disallow: /`; without an origin the sitemap is empty and canonical/absolute social URLs are omitted.
-6. Deploy `dist/`, verify redirects, HTTPS, canonical URLs and sitemap on the real domain, and test one authorized enquiry with the client. Local QA cannot establish production indexing or message delivery.
-
-## AI image generation
-
-Five regional images (misty hills, tea slopes, spices, monsoon leaves, hill road) were generated server-side with the OpenAI Image API. They never depict the property. Models, quality tiers, sizes and every prompt/placement live in `config/image-generation.mjs`. Change the model names or quality there.
+Local and Vercel preview builds default to `noindex, follow` and an empty sitemap. For a local production-mode indexing audit:
 
 ```powershell
-npm run images:plan       # show model/quality/size routing, no API calls
-npm run images:generate   # reads OPENAI_API_KEY from .env; skips existing files (--force to redo)
-npm run assets            # convert originals + generated PNGs to AVIF/WebP
+$env:PUBLIC_INDEXABLE='true'
+npm run build
+Remove-Item Env:PUBLIC_INDEXABLE
+npm run audit
 ```
 
-The key is read only by the Node script. It is never bundled into the site. `.env` is Git-ignored.
+## Vercel deployment
 
-## Assets and formatting
+Verified Git remote: `https://github.com/pv-webservices/singh-homestay.git`, branch `main`. GitHub reports a successful Vercel deployment for the current remote commit. The original live homepage exactly matched a local build before this audit. Changes from this audit are local only; no commit, push or deployment was performed.
 
-`npm run assets` regenerates responsive AVIF/WebP derivatives from originals in `source-assets/`. The optimized public assets are already present, so a normal build does not require the private originals. No generated resort/property photography is used. Fonts are self-hosted.
+Vercel configuration is in `vercel.json`: Astro framework, output `dist`, trailing slashes, index-document redirects, www-to-apex redirect, security headers and immutable caching for hashed `/_astro/` assets. Vercel enforces HTTPS. The build command runs type checks, unit tests, build and SEO audit. No adapter or server functions are required.
 
-Browser QA uses Playwright CLI and local axe-core. From a running production preview:
+**Before deploying:** the existing live Vercel domain setting redirects the apex to www. Change Settings → Domains so `singhhomestay.in` serves production and www redirects to the apex. Leaving the existing apex redirect active alongside the new reverse redirect can loop. Do this with the release. Confirm the chosen canonical origin before launch.
+
+Production indexing defaults on only when `VERCEL_ENV=production`. Remove an old `PUBLIC_INDEXABLE=false` production override if present. An explicit false still disables indexing. The default canonical origin is the supplied https://singhhomestay.in; `PUBLIC_SITE_URL` must be an HTTPS origin if overridden. Do not enable indexing on preview builds.
+
+After authorized Git push/redeploy, run `node scripts/check-live.mjs` and follow [the Search Console guide](docs/GOOGLE-SEARCH-CONSOLE.md). Check the generated custom 404 with a random missing URL, not only `/404.html`. Local preview does not emulate Vercel headers or redirects.
+
+## Contact configuration
+
+`src/data/site.ts` owns the confirmed WhatsApp recipient `919288056157`, mobile `+919288056157`, existing landline, address, navigation and route list. `whatsappFor(path)` supplies encoded page-specific messages. Reconfirm the existing landline and exact map pin with the client; Maps links remain labelled address searches.
+
+`src/components/EnquiryForm.astro` and `src/scripts/site.ts` prepare the enquiry. `src/lib/enquiry.mjs` validates typed, autofilled and programmatic values: name length, 10–15 phone digits, paired calendar dates, future arrival, guest selections and message bounds. Field errors have accessible descriptions, summary and focus. Values stay in the form. No personal contact data is logged or saved in storage. The homepage date/party handoff uses a GET URL; the privacy policy explains browser-history implications.
+
+A separate user click opens the prepared native WhatsApp link, then the visitor decides whether to send. This never confirms delivery, room availability or a booking. Native anchors avoid script-created popups; direct WhatsApp and telephone links remain available throughout the site and in no-JavaScript fallback text. The browser cannot establish whether the WhatsApp app opened successfully or a message was sent. Request explicit approval for a supervised real chat-open test; sending requires separate approval.
+
+## Folder structure
+
+- `src/pages/`: 13 content routes plus the custom 404, robots and generated sitemap endpoints.
+- `src/layouts/`, `src/components/`, `src/styles/`, `src/scripts/`: existing presentation and behavior. The audit preserved the design; only the approved optional contact field was removed.
+- `src/data/site.ts`: business data, page names and indexable routes.
+- `public/images/brand/`: approved logo derivatives and social image.
+- `public/images/property/`: actual property and regional client photographs.
+- `public/images/people/`: the director portrait already present before this audit and its thumbnail.
+- `public/images/editorial/`: previously generated regional illustrations; never represented as property photographs.
+- `public/`: square favicon set and webmanifest.
+- `source-files/`: private full-resolution masters and supplied materials, ignored by Git and excluded from deployment. Do not upload this directory.
+- `docs/`: design/asset provenance, historical QA, current audit report and Google Search Console instructions.
+- `scripts/`, `tests/`: asset generation, output/live/browser audits and unit tests.
+- `output/`: ignored local QA artifacts, Lighthouse JSON and screenshots.
+
+## Assets and browser QA
+
+`npm run assets` rebuilds responsive 240/480/900/up-to-1600px AVIF/WebP photographs and 160/320/640px logos from private masters. `node scripts/resize-thumbnails.mjs` can create the small derivatives from existing public files, including the portrait thumbnail. `npm run icons` regenerates the logo-based icon set and 1200×630 social image without private masters. Normal builds need no private originals or credentials.
+
+AI regional-image generation remains an optional existing maintenance tool: `npm run images:plan` is offline; `npm run images:generate` uses a locally configured server-side API key. Model/prompt configuration is in `config/image-generation.mjs`. No generation API was called for this audit. Never commit a real key or deploy the project root.
+
+From a running production preview, use the established Playwright CLI workflow:
 
 ```powershell
-npx --yes --package @playwright/cli playwright-cli -s=singh open http://127.0.0.1:4321/ --headed
+npx --yes --package @playwright/cli playwright-cli -s=singh open http://127.0.0.1:4321/
 npx --yes --package @playwright/cli playwright-cli -s=singh run-code --filename scripts/browser-qa.js
+npx --yes --package @playwright/cli playwright-cli -s=singh run-code --filename scripts/interaction-qa.js
+npx --yes --package @playwright/cli playwright-cli -s=singh run-code --filename scripts/contact-qa.js
 ```
 
-Official technical references: [Astro static routing](https://v6.docs.astro.build/en/guides/routing/) and [site URL configuration](https://docs.astro.build/en/guides/configuring-astro/). Regional destination source: [Kerala Tourism: Peerumedu](https://www.keralatourism.org/munnar/peerumedu-idukki.php). No exact travel times, attraction fees or opening hours are asserted.
+Contact QA intercepts outgoing contact clicks. Do not bypass its interception or test with real messages/calls.
+
+See [the current audit report](docs/AUDIT-REPORT.md), [asset provenance](docs/ASSETS.md), and [Search Console setup](docs/GOOGLE-SEARCH-CONSOLE.md). Confirm current classification, address spelling, map pin, room facilities/capacity/rates and booking policies with the client; no new business claims were introduced.

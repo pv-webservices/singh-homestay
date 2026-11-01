@@ -1,3 +1,5 @@
+> Historical QA from 28 October 2026. See [AUDIT-REPORT.md](AUDIT-REPORT.md) for the 1 November audit and current deployment limitations.
+
 # Local verification — redesign, 28 October 2026
 
 All checks ran against the production build (`npm run build`, served by `astro preview` on 127.0.0.1:4321) in headless Chromium.

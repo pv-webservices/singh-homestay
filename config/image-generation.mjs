@@ -18,7 +18,7 @@ export const imageConfig = {
     portrait: "1024x1536",
   },
   outputFormat: "png",
-  outputDir: "source-assets/generated",
+  outputDir: "source-files/generated",
   requestTimeoutMs: 180_000,
 };
 

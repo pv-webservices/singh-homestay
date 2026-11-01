@@ -32,16 +32,20 @@ const exists = (file) =>
     () => false,
   );
 
-await mkdir("public/images", { recursive: true });
+for (const folder of ["brand", "property", "editorial"])
+  await mkdir(`public/images/${folder}`, { recursive: true });
 for (const [name, file] of Object.entries(assets)) {
-  const source = path.join("source-assets", file);
+  const source = path.join("source-files", file);
   if (!(await exists(source))) {
     console.warn(`missing ${source} — skipped`);
     continue;
   }
   const { width } = await sharp(source).metadata();
+  const folder = name.startsWith("ai-") ? "editorial" : "property";
   const sizes = [
-    ...new Set([480, 900, Math.min(1600, width)].filter((n) => n <= width)),
+    ...new Set(
+      [240, 480, 900, Math.min(1600, width)].filter((n) => n <= width),
+    ),
   ];
   for (const size of sizes) {
     const base = sharp(source)
@@ -50,18 +54,18 @@ for (const [name, file] of Object.entries(assets)) {
     await base
       .clone()
       .webp({ quality: 80 })
-      .toFile(`public/images/${name}-${size}.webp`);
+      .toFile(`public/images/${folder}/${name}-${size}.webp`);
     await base
       .clone()
       .avif({ quality: 48, effort: 6 })
-      .toFile(`public/images/${name}-${size}.avif`);
+      .toFile(`public/images/${folder}/${name}-${size}.avif`);
   }
   console.log(`${name}: ${sizes.join(", ")}px`);
 }
 
 // Logo: remove only the outer white backdrop (flood fill from the edges) so
 // the artwork itself, including its cream letter outlines, is untouched.
-const logoSource = path.join("source-assets", "website logo.jpeg");
+const logoSource = path.join("source-files", "website logo.jpeg");
 if (await exists(logoSource)) {
   const { data, info } = await sharp(logoSource)
     .ensureAlpha()
@@ -91,11 +95,11 @@ if (await exists(logoSource)) {
     { threshold: 1 },
   );
   const trimmed = await transparent.png().toBuffer();
-  for (const size of [320, 640]) {
+  for (const size of [160, 320, 640]) {
     await sharp(trimmed)
       .resize({ width: size })
       .webp({ quality: 88, alphaQuality: 90 })
-      .toFile(`public/images/logo-${size}.webp`);
+      .toFile(`public/images/brand/logo-${size}.webp`);
   }
   const meta = await sharp(trimmed).metadata();
   console.log(`logo: transparent ${meta.width}x${meta.height} → 320, 640px`);

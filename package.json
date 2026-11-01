@@ -12,20 +12,22 @@
     "test": "node --test tests/*.test.mjs",
     "verify:output": "node scripts/verify-output.mjs",
     "images:generate": "node --env-file=.env scripts/generate-images.mjs",
-    "images:plan": "node scripts/generate-images.mjs --dry-run"
+    "images:plan": "node scripts/generate-images.mjs --dry-run",
+    "audit": "node scripts/audit.mjs",
+    "icons": "node scripts/generate-icons.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.12",
     "@fontsource-variable/fraunces": "^5.3.0",
     "@fontsource/caveat": "^5.3.0",
     "@fontsource/dm-sans": "^5.3.0",
-    "@fontsource/playfair-display": "^5.3.0",
     "astro": "^7.4.2",
     "sharp": "^0.35.5",
     "typescript": "^6.0.3"
   },
   "devDependencies": {
     "axe-core": "^4.14.0",
+    "parse5": "^8.0.1",
     "prettier": "^3.9.10",
     "prettier-plugin-astro": "^1.1.2"
   }

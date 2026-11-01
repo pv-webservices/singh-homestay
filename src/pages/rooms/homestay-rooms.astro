@@ -5,7 +5,9 @@ import Gallery from "../../components/Gallery.astro";
 import Icon from "../../components/Icon.astro";
 import WhatsAppIcon from "../../components/WhatsAppIcon.astro";
 import CTA from "../../components/CTA.astro";
-import { business, whatsapp } from "../../data/site";
+import { business, whatsappFor } from "../../data/site";
+
+const whatsapp = whatsappFor(Astro.url.pathname);
 ---
 
 <Layout

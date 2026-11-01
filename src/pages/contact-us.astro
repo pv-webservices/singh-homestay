@@ -5,7 +5,9 @@ import EnquiryForm from "../components/EnquiryForm.astro";
 import Photo from "../components/Photo.astro";
 import Icon from "../components/Icon.astro";
 import WhatsAppIcon from "../components/WhatsAppIcon.astro";
-import { business, whatsapp } from "../data/site";
+import { business, whatsappFor } from "../data/site";
+
+const whatsapp = whatsappFor(Astro.url.pathname);
 ---
 
 <Layout

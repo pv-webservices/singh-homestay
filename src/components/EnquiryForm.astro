@@ -1,11 +1,13 @@
 ---
 import Icon from "./Icon.astro";
 import WhatsAppIcon from "./WhatsAppIcon.astro";
-import { business, whatsapp } from "../data/site";
+import { business, whatsappFor } from "../data/site";
 interface Props {
   booking?: boolean;
 }
 const { booking = false } = Astro.props;
+
+const whatsapp = whatsappFor(Astro.url.pathname);
 ---
 
 <div class="form-panel">
@@ -28,7 +30,6 @@ const { booking = false } = Astro.props;
     data-enquiry={booking ? "booking" : "contact"}
     data-date-form
     action="#"
-    method="post"
   >
     <div class="form-grid">
       <label class="form-field">
@@ -50,25 +51,13 @@ const { booking = false } = Astro.props;
           name="phone"
           autocomplete="tel"
           required
-          minlength="7"
+          minlength="10"
           maxlength="24"
           placeholder="Including country code"
         />
       </label>
       {!booking && (
         <>
-          <label class="form-field">
-            <span>
-              Email <small>(optional)</small>
-            </span>
-            <input
-              type="email"
-              name="email"
-              autocomplete="email"
-              maxlength="120"
-              placeholder="you@example.com"
-            />
-          </label>
           <label class="form-field">
             <span>Enquiry type</span>
             <select name="enquiryType">

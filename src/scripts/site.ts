@@ -6,6 +6,7 @@ import {
   validPhone,
   composeEnquiry,
   whatsappUrl,
+  validateEnquiry,
 } from "../lib/enquiry.mjs";
 
 import { business } from "../data/site";
@@ -166,7 +167,7 @@ document
     checkout.addEventListener("input", updateDates);
     form.addEventListener("submit", (e) => {
       updateDates();
-      if (!form.checkValidity()) {
+      if (!form.dataset.enquiry && !form.checkValidity()) {
         e.preventDefault();
         form.reportValidity();
       }
@@ -178,12 +179,13 @@ document.querySelectorAll<HTMLFormElement>("[data-enquiry]").forEach((form) => {
   if (submit) submit.disabled = false;
   const status = form.querySelector<HTMLElement>(".form-status");
   const result = form.querySelector<HTMLElement>(".enquiry-result");
+  form.noValidate = true;
   const phone = form.querySelector<HTMLInputElement>("[name=phone]");
   const name = form.querySelector<HTMLInputElement>("[name=guestName]");
   const message = form.querySelector<HTMLTextAreaElement>("[name=message]");
   phone?.addEventListener("input", () =>
     phone.setCustomValidity(
-      validPhone(phone.value) ? "" : "Enter a mobile number with 7–15 digits.",
+      validPhone(phone.value) ? "" : "Enter a mobile number with 10–15 digits.",
     ),
   );
   name?.addEventListener("input", () =>
@@ -216,36 +218,70 @@ document.querySelectorAll<HTMLFormElement>("[data-enquiry]").forEach((form) => {
     if (/^(?:[1-9]|1[0-2])$/.test(guests))
       (form.elements.namedItem("adults") as HTMLSelectElement).value = guests;
   }
-  form.addEventListener("input", () => {
+  const hideResult = () => {
     if (result) result.hidden = true;
+  };
+  form.addEventListener("input", hideResult);
+  form.addEventListener("change", hideResult);
+  const readData = () => ({
+    ...(Object.fromEntries(new FormData(form).entries()) as Record<
+      string,
+      string
+    >),
+    source: location.origin + location.pathname,
+  });
+  const validate = (data: Record<string, string>) => {
+    const errors = validateEnquiry(data, form.dataset.enquiry === "booking");
+    form
+      .querySelectorAll<
+        HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+      >("input, select, textarea")
+      .forEach((field) => {
+        const errorId = `enquiry-${field.name}-error`;
+        const label = field.closest("label")?.querySelector("span");
+        if (label) {
+          label.id = `enquiry-${field.name}-label`;
+          field.setAttribute("aria-labelledby", label.id);
+        }
+        let note = document.getElementById(errorId);
+        if (!note) {
+          note = document.createElement("span");
+          note.id = errorId;
+          note.className = "form-help";
+          field.after(note);
+          field.setAttribute("aria-describedby", errorId);
+        }
+        note.textContent = errors[field.name] || "";
+        note.hidden = !errors[field.name];
+        field.setAttribute("aria-invalid", String(!!errors[field.name]));
+        field.setCustomValidity(errors[field.name] || "");
+      });
+    if (Object.keys(errors).length) {
+      hideResult();
+      if (status) {
+        status.setAttribute("role", "alert");
+        status.textContent =
+          "Please correct the highlighted fields. Your details have been kept.";
+      }
+      form.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+      return false;
+    }
+    if (status) status.textContent = "";
+    return true;
+  };
+  result?.querySelector("a")?.addEventListener("click", (event) => {
+    const data = readData();
+    if (!validate(data)) event.preventDefault();
+    else
+      (event.currentTarget as HTMLAnchorElement).href = whatsappUrl(
+        composeEnquiry(data),
+        business.whatsapp,
+      );
   });
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-    const data = Object.fromEntries(new FormData(form).entries()) as Record<
-      string,
-      string
-    >;
-    const dateError = validateDates(
-      data.checkin || "",
-      data.checkout || "",
-      localDate(),
-      form.dataset.enquiry === "booking",
-    );
-    const error =
-      dateError ||
-      (!validPhone(data.phone)
-        ? "Please enter a mobile number with 7–15 digits."
-        : "") ||
-      (data.guestName.trim().length < 2 ? "Please enter your name." : "");
-    if (error) {
-      if (status) status.textContent = error;
-      return;
-    }
-    if (status) status.textContent = "";
+    const data = readData();
+    if (!validate(data)) return;
     if (!result) return;
     const prepared = composeEnquiry(data);
     const summary = result.querySelector("pre");

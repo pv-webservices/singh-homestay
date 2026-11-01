@@ -6,7 +6,7 @@ import Photo from "../../components/Photo.astro";
 import Icon from "../../components/Icon.astro";
 import Gallery from "../../components/Gallery.astro";
 import CTA from "../../components/CTA.astro";
-import { places, business, whatsapp } from "../../data/site";
+import { places, business, whatsappFor } from "../../data/site";
 export function getStaticPaths() {
   return places.map((place) => ({
     params: { slug: place.slug },
@@ -20,6 +20,8 @@ const maps =
   encodeURIComponent(
     waterfall ? "Mlamala waterfall Idukki Kerala" : "Peerumedu Idukki Kerala",
   );
+
+const whatsapp = whatsappFor(Astro.url.pathname);
 ---
 
 <Layout
