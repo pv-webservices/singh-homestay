@@ -135,6 +135,14 @@ export const photos = {
     caption: "Welcome to Singh Homestay",
     category: "Homestay",
   },
+  "welcome-banner": {
+    name: "welcome-banner",
+    width: 720,
+    height: 425,
+    alt: "Singh House Homestay signboard showing the Silver Waterfalls, with the names and phone numbers of Sanjay Singh and Sabin Singh",
+    caption: "Welcome to Singh House Homestay",
+    category: "Homestay",
+  },
   "twin-beds": {
     name: "twin-beds",
     width: 757,

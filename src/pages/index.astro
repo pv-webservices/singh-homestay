@@ -188,8 +188,11 @@ const whatsapp = whatsappFor(Astro.url.pathname);
           </a>
         </div>
         <div class="intro-collage">
-          <div class="frame tall" data-reveal="image">
-            <Photo photo="exterior" sizes="(max-width: 980px) 50vw, 25vw" />
+          <div class="frame banner" data-reveal="image">
+            <Photo
+              photo="welcome-banner"
+              sizes="(max-width: 980px) 100vw, 45vw"
+            />
           </div>
           <div class="frame short" data-reveal="image" style="--i:1">
             <Photo photo="veranda" sizes="(max-width: 980px) 50vw, 25vw" />

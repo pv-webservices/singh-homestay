@@ -1187,12 +1187,12 @@ h2 em,
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
   gap: 16px;
 }
-.intro-collage .tall {
-  grid-row: span 2;
-  aspect-ratio: 3 / 5;
+/* The signboard carries text, so it spans the row at its own ratio (no crop). */
+.intro-collage .banner {
+  grid-column: 1 / -1;
+  aspect-ratio: 720 / 425;
 }
 .intro-collage .short {
   aspect-ratio: 4 / 5;
@@ -2740,7 +2740,8 @@ a.contact-card:hover {
 .footer-word {
   margin: 0;
   padding: 0 0 10px;
-  font: 400 clamp(4rem, 15vw, 15rem) / 0.85 var(--serif);
+  /* "Singh Homestay" is ~6.6em wide, so 13vw keeps it inside every viewport. */
+  font: 400 clamp(2.5rem, 13vw, 15rem) / 0.85 var(--serif);
   letter-spacing: -0.04em;
   color: rgba(255, 255, 255, 0.05);
   text-align: center;

@@ -18,6 +18,7 @@ const assets = logoOnly
       hills: "image-10.jpeg",
       plantations: "image-12.jpeg",
       exterior: "image-7.jpeg",
+      "welcome-banner": "about-us-image.webp",
     };
 // AI-generated regional imagery (see config/image-generation.mjs).
 for (const asset of logoOnly ? [] : imageAssets)

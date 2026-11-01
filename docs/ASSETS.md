@@ -15,6 +15,7 @@ Originals live in `source-files/` (not published, ignored by Git). `npm run asse
 | `veranda-*`    | `image-17.jpeg`           | Sit-out tile, About header, gallery          |
 | `dining-*`     | `image-18.jpeg`           | Dining tile, About, gallery                  |
 | `exterior-*`   | `image-7.jpeg`            | Intro collage, About, rooms page             |
+| `welcome-banner-*` | `about-us-image.webp`   | Intro collage signboard                      |
 | `hills-*`      | `image-10.jpeg`           | Idukki hills card, Nearby Places             |
 | `plantations-*`| `image-12.jpeg`           | Nearby Places, gallery                       |
 | `logo-160/320/640` | `website logo.jpeg`       | Header, drawer, footer                       |
