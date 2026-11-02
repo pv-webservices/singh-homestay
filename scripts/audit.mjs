@@ -155,7 +155,10 @@ export function checkPage(html, route, origin) {
   }
   for (const link of nodes.filter((n) => n.tag === "a")) {
     const href = link.attrs.href || "";
-    check(!/^mailto:/i.test(href), "obsolete contact destination");
+    check(
+      !/^mailto:/i.test(href) || href === "mailto:thesinghshomestay@gmail.com",
+      "obsolete contact destination",
+    );
     if (href.startsWith("https://wa.me/")) {
       const url = new URL(href);
       check(

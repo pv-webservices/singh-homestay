@@ -346,6 +346,10 @@ const schema = {
             <a href={whatsapp} target="_blank" rel="noopener noreferrer">
               <WhatsAppIcon size={18} /> WhatsApp the homestay
             </a>
+            <a href={`mailto:${business.email}`}>
+              <Icon name="mail" size={18} />
+              {business.email}
+            </a>
             <a href={business.maps} target="_blank" rel="noopener noreferrer">
               <Icon name="pin" size={18} />
               <address>{business.address}</address>

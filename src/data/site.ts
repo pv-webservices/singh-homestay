@@ -3,6 +3,7 @@ export const business = {
   phone: "+91 92880 56157",
   tel: "+919288056157",
   whatsapp: "919288056157",
+  email: "thesinghshomestay@gmail.com",
   landline: "04869 296094",
   address:
     "Aruvikuzhi, Mlamala Puthuvel, Thengakal P.O., Peerumedu Taluk, Idukki District, Kerala – 685533, India",

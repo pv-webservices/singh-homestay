@@ -59,7 +59,19 @@ const whatsapp = whatsappFor(Astro.url.pathname);
             <small>WhatsApp</small>
             <strong>Chat with the homestay</strong>
           </a>
-          <div class="contact-card wide" data-reveal style="--i:3">
+          <a
+            class="contact-card wide"
+            href={`mailto:${business.email}`}
+            data-reveal
+            style="--i:3"
+          >
+            <span class="rule-icon">
+              <Icon name="mail" size={22} />
+            </span>
+            <small>Email</small>
+            <strong>{business.email}</strong>
+          </a>
+          <div class="contact-card wide" data-reveal style="--i:4">
             <span class="rule-icon">
               <Icon name="pin" size={22} />
             </span>
