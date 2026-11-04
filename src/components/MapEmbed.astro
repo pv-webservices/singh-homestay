@@ -1,0 +1,16 @@
+---
+import { business } from "../data/site";
+interface Props {
+  class?: string;
+}
+const { class: cls } = Astro.props;
+---
+
+<div class:list={["map-embed", cls]}>
+  <iframe
+    src={business.mapsEmbed}
+    title={`Map showing ${business.name}, ${business.address}`}
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    allowfullscreen></iframe>
+</div>

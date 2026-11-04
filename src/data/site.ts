@@ -1,12 +1,14 @@
+const mapQuery =
+  "Singh House Homestay, Mlamala, Thengakal P.O., Vandiperiyar, Idukki, Kerala 685533";
 export const business = {
   name: "Singh Homestay",
-  phone: "+91 92880 56157",
-  tel: "+919288056157",
-  whatsapp: "919288056157",
-  email: "thesinghshomestay@gmail.com",
+  phone: "+91 96565 53358",
+  tel: "+919656553358",
+  whatsapp: "919656553358",
+  email: "brahmasingh369@gmail.com",
   landline: "04869 296094",
   address:
-    "Aruvikuzhi, Mlamala Puthuvel, Thengakal P.O., Peerumedu Taluk, Idukki District, Kerala – 685533, India",
+    "Mlamala, Thengakal P.O., Peermade / Vandiperiyar, Idukki, Kerala, 685533, India",
   host: "Sanjay Singh",
   hostRole: "Managing Director",
   altName: "Singh House Homestay",
@@ -15,9 +17,8 @@ export const business = {
   classification: "Classified homestay · Department of Tourism, Kerala",
   maps:
     "https://www.google.com/maps/search/?api=1&query=" +
-    encodeURIComponent(
-      "Singh House Homestay, Aruvikuzhi, Mlamala Puthuvel, Thengakal, Idukki, Kerala 685533",
-    ),
+    encodeURIComponent(mapQuery),
+  mapsEmbed: `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&z=15&output=embed`,
 };
 export const pageNames: Record<string, string> = {
   "/": "Home",
@@ -250,7 +251,7 @@ export const faq = [
   ],
   [
     "Where is Singh Homestay?",
-    "The homestay is in Aruvikuzhi, Mlamala Puthuvel, Thengakal P.O., Peerumedu Taluk, Idukki District, Kerala – 685533.",
+    "The homestay is at Mlamala, Thengakal P.O., Peermade / Vandiperiyar, Idukki, Kerala, 685533, India.",
   ],
   [
     "Does an enquiry confirm my booking?",

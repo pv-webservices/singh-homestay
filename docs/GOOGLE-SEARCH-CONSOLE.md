@@ -11,7 +11,7 @@ Prepared 1 November 2026. These instructions describe the updated local build. D
 - Confirm `/sitemap.xml` returns HTTP 200, XML, and exactly the 13 URLs below.
 - Confirm a random nonexistent route returns **HTTP 404**, the branded error page, `noindex, follow`, and no canonical tag.
 - Confirm favicon files and `/site.webmanifest` return HTTP 200, and CSS, JS and icons are crawlable.
-- Inspect WhatsApp URLs for recipient `919288056157`, encoded contextual text, and `tel:+919288056157` calls. The pre-existing landline is `tel:+914869296094`; ask the client to reconfirm it. Automated tests intercept contact navigation. One supervised manual chat-open test requires approval, and sending requires separate approval.
+- Inspect WhatsApp URLs for recipient `919656553358`, encoded contextual text, and `tel:+919656553358` calls. The pre-existing landline is `tel:+914869296094`; ask the client to reconfirm it. Automated tests intercept contact navigation. One supervised manual chat-open test requires approval, and sending requires separate approval.
 - Run `node scripts/check-live.mjs` after deployment and inspect `output/audit/live-check.json`. Astro preview cannot verify Vercel redirect/header behavior.
 
 ## 2. Add the Domain property and verify DNS

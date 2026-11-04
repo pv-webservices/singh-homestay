@@ -4,6 +4,7 @@ import PageHero from "../components/PageHero.astro";
 import EnquiryForm from "../components/EnquiryForm.astro";
 import Photo from "../components/Photo.astro";
 import Icon from "../components/Icon.astro";
+import MapEmbed from "../components/MapEmbed.astro";
 import WhatsAppIcon from "../components/WhatsAppIcon.astro";
 import { business, whatsappFor } from "../data/site";
 
@@ -12,7 +13,7 @@ const whatsapp = whatsappFor(Astro.url.pathname);
 
 <Layout
   title="Contact Us · Enquiries & Directions"
-  description="Contact Singh Homestay in Aruvikuzhi, Idukki. Call +91 92880 56157, the landline 04869 296094, or send a WhatsApp enquiry about rooms and directions."
+  description="Contact Singh Homestay in Mlamala, Idukki. Call +91 96565 53358, the landline 04869 296094, or send a WhatsApp enquiry about rooms and directions."
 >
   <PageHero
     photo="ai-tea-slopes"
@@ -84,13 +85,14 @@ const whatsapp = whatsappFor(Astro.url.pathname);
             </span>
           </div>
         </div>
+        <MapEmbed class="contact-map" />
         <div class="map-card" data-reveal>
           <Photo photo="ai-hill-road" sizes="(max-width: 980px) 100vw, 45vw" />
           <div>
             <p class="eyebrow light">Getting here</p>
             <h2>Let’s find your way</h2>
             <p>
-              Search our address on Google Maps, then contact us for the exact
+              The map shows our area in Mlamala. Contact us for the exact
               arrival pin and current directions before you travel.
             </p>
             <a
