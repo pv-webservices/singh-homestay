@@ -34,7 +34,7 @@ test("enquiries reject past, missing and reversed dates", () => {
   );
 });
 test("contact numbers have usable digits", () => {
-  assert.equal(validPhone("+91 92880 56157"), true);
+  assert.equal(validPhone("+91 96565 53358"), true);
   assert.equal(validPhone("abcdefghij"), false);
   assert.equal(validPhone("123"), false);
   assert.equal(validPhone("123456789"), false);
@@ -93,9 +93,9 @@ test("structured message retains names, dates and children without confirming a 
   assert.match(message, /Adults: 2/);
   assert.match(message, /Children: 1/);
   assert.doesNotMatch(message, /booking is confirmed/i);
-  const url = new URL(whatsappUrl(message, "919288056157"));
+  const url = new URL(whatsappUrl(message, "919656553358"));
   assert.equal(url.hostname, "wa.me");
-  assert.equal(url.pathname, "/919288056157");
+  assert.equal(url.pathname, "/919656553358");
   assert.equal(url.searchParams.get("text"), message);
 });
 

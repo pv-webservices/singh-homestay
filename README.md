@@ -39,7 +39,7 @@ After authorized Git push/redeploy, run `node scripts/check-live.mjs` and follow
 
 ## Contact configuration
 
-`src/data/site.ts` owns the confirmed WhatsApp recipient `919288056157`, mobile `+919288056157`, existing landline, address, navigation and route list. `whatsappFor(path)` supplies encoded page-specific messages. Reconfirm the existing landline and exact map pin with the client; Maps links remain labelled address searches.
+`src/data/site.ts` owns the confirmed WhatsApp recipient `919656553358`, mobile `+919656553358`, existing landline, address, navigation and route list. `whatsappFor(path)` supplies encoded page-specific messages. Reconfirm the existing landline and exact map pin with the client; Maps links remain labelled address searches.
 
 `src/components/EnquiryForm.astro` and `src/scripts/site.ts` prepare the enquiry. `src/lib/enquiry.mjs` validates typed, autofilled and programmatic values: name length, 10–15 phone digits, paired calendar dates, future arrival, guest selections and message bounds. Field errors have accessible descriptions, summary and focus. Values stay in the form. No personal contact data is logged or saved in storage. The homepage date/party handoff uses a GET URL; the privacy policy explains browser-history implications.
 

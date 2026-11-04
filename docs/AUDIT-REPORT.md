@@ -47,7 +47,7 @@ Files: `src/components/Photo.astro`, `src/layouts/Layout.astro`, `src/pages/inde
 
 ## 3. WhatsApp and telephone enquiries
 
-Used the supplied WhatsApp recipient **919288056157** and mobile **+919288056157**. Retained the pre-existing landline **+914869296094**, pending reconfirmation. Existing booking-page links still lead to the local composer; WhatsApp links now include page-specific, encoded context. No fabricated contact number was added.
+Used the supplied WhatsApp recipient **919656553358** and mobile **+919656553358**. Retained the pre-existing landline **+914869296094**, pending reconfirmation. Existing booking-page links still lead to the local composer; WhatsApp links now include page-specific, encoded context. No fabricated contact number was added.
 
 Removed the optional email field, email message-composition branch and related privacy wording. No email provider, form endpoint, environment variable, honeypot or delivery dependency existed to remove. The site has no submission backend. Forms only prepare a message and require a separate native-link click to open WhatsApp. They never claim delivery or booking confirmation.
 
@@ -133,7 +133,7 @@ Read-only HTTP checks are in `output/audit/live-check.json` and can be rerun wit
 ## Decisions and your next actions
 
 1. Review the prepared bare-domain canonical and arrange the Vercel domain-setting change with deployment; this is the main release blocker. No redirect was changed live.
-2. The primary WhatsApp/mobile number is the supplied **+91 92880 56157**; no number clarification is needed. Review contextual message wording, reconfirm the existing landline and exact Google Maps pin, and confirm current classification/address/facilities/house rules and policy copy. Existing claims were not independently re-certified.
+2. The primary WhatsApp/mobile number is the supplied **+91 96565 53358**; no number clarification is needed. Review contextual message wording, reconfirm the existing landline and exact Google Maps pin, and confirm current classification/address/facilities/house rules and policy copy. Existing claims were not independently re-certified.
 3. Review the four shortened SEO titles and the decision to keep the two policy pages indexable. No new content page was noindexed; preview builds and 404 remain noindex.
 4. When ready, explicitly authorize your normal commit/push/redeploy workflow. Remove an old production indexing override and coordinate the domain settings. Run the live checks above afterward. Nothing has been committed or pushed here.
 5. Approve one supervised manual WhatsApp **chat-open** flow after deployment. Sending a message needs separate approval. No contact action was attempted in this audit.

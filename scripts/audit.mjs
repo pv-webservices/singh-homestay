@@ -124,7 +124,7 @@ export function checkPage(html, route, origin) {
   }
   const business = graph.find((n) => n["@type"] === "LodgingBusiness");
   check(
-    business?.telephone === "+919288056157" &&
+    business?.telephone === "+919656553358" &&
       !!business?.["@id"] &&
       !!business?.logo &&
       !!business?.address,
@@ -156,13 +156,13 @@ export function checkPage(html, route, origin) {
   for (const link of nodes.filter((n) => n.tag === "a")) {
     const href = link.attrs.href || "";
     check(
-      !/^mailto:/i.test(href) || href === "mailto:thesinghshomestay@gmail.com",
+      !/^mailto:/i.test(href) || href === "mailto:brahmasingh369@gmail.com",
       "obsolete contact destination",
     );
     if (href.startsWith("https://wa.me/")) {
       const url = new URL(href);
       check(
-        url.pathname === "/919288056157" && !!url.searchParams.get("text"),
+        url.pathname === "/919656553358" && !!url.searchParams.get("text"),
         "incorrect WhatsApp recipient or missing message",
       );
     }

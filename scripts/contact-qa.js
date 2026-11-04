@@ -25,10 +25,10 @@ async page => {
       const links = await page.locator('a[href^="https://wa.me/"]').evaluateAll(links => links.map(a => a.href));
       check(`Correct contextual WhatsApp links ${route} at ${width}`, links.length > 0 && links.every(href => {
         const u = new URL(href);
-        return u.pathname === '/919288056157' && u.searchParams.get('text').includes(route);
+        return u.pathname === '/919656553358' && u.searchParams.get('text').includes(route);
       }));
       const telephone = await page.locator('a[href^="tel:"]').evaluateAll(links => links.map(a => a.href));
-      check(`Valid telephone links ${route} at ${width}`, telephone.length > 0 && telephone.every(href => /^tel:\+(?:919288056157|914869296094)$/.test(href)));
+      check(`Valid telephone links ${route} at ${width}`, telephone.length > 0 && telephone.every(href => /^tel:\+(?:919656553358|914869296094)$/.test(href)));
       await page.locator('.footer-contact a[href^="https://wa.me/"]').click();
       await page.locator('.footer-contact a[href^="tel:"]').first().click();
       check(`Contact clicks intercepted ${route} at ${width}`, await page.evaluate(() => window.contactAttempts.length === 2));
@@ -60,7 +60,7 @@ async page => {
   check('Encoded message retains symbols and source path', url.searchParams.get('text').includes('QA <Guest> & Family') && url.searchParams.get('text').includes('Directions? & room details.') && url.searchParams.get('text').includes('/contact-us/'));
   check('Summary escapes markup as text', await page.locator('.enquiry-result pre').evaluate(el => !el.querySelector('guest') && el.textContent.includes('<Guest>')));
   await link.click();
-  check('Blocked handoff preserves values and call fallback', await page.getByLabel('Your name *', { exact: true }).inputValue() === 'QA <Guest> & Family' && await page.locator('.footer-contact a[href="tel:+919288056157"]').isVisible());
+  check('Blocked handoff preserves values and call fallback', await page.getByLabel('Your name *', { exact: true }).inputValue() === 'QA <Guest> & Family' && await page.locator('.footer-contact a[href="tel:+919656553358"]').isVisible());
   await page.locator('[name=phone]').evaluate(el => el.value = '123');
   await link.click();
   check('Handoff revalidates silent autofill changes', await page.locator('[name=phone]').getAttribute('aria-invalid') === 'true' && !await link.isVisible());

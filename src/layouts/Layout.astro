@@ -8,6 +8,7 @@ import "../styles/global.css";
 import serifFont from "@fontsource-variable/fraunces/files/fraunces-latin-opsz-normal.woff2?url";
 import sansFont from "@fontsource/dm-sans/files/dm-sans-latin-400-normal.woff2?url";
 import Icon from "../components/Icon.astro";
+import MapEmbed from "../components/MapEmbed.astro";
 import WhatsAppIcon from "../components/WhatsAppIcon.astro";
 import {
   business,
@@ -51,8 +52,8 @@ const schema = {
         : {}),
       address: {
         "@type": "PostalAddress",
-        streetAddress: "Aruvikuzhi, Mlamala Puthuvel, Thengakal P.O.",
-        addressLocality: "Peerumedu, Idukki",
+        streetAddress: "Mlamala, Thengakal P.O.",
+        addressLocality: "Peermade / Vandiperiyar, Idukki",
         addressRegion: "Kerala",
         postalCode: "685533",
         addressCountry: "IN",
@@ -273,7 +274,7 @@ const schema = {
         >
           <WhatsAppIcon size={20} /> Chat on WhatsApp
         </a>
-        <p>Aruvikuzhi · Idukki · Kerala</p>
+        <p>Mlamala · Idukki · Kerala</p>
       </div>
     </div>
     <main id="main">
@@ -356,6 +357,9 @@ const schema = {
             </a>
           </div>
         </div>
+      </div>
+      <div class="wrap footer-map">
+        <MapEmbed />
       </div>
       <div
         class="footer-word"
